@@ -37,6 +37,10 @@ This project provides a comprehensive AI-powered trading system with **specializ
 git clone <repository-url>
 cd poc
 pip install -r requirements.txt
+
+# Configure environment variables
+cp .env.example .env
+# Edit .env with your OpenAI API key
 ```
 
 ## 🎯 Usage Options
@@ -224,6 +228,8 @@ python main.py analyze samples/scenario1 sk-your-key
 │   └── scenario1-11/           # Sample trading data
 ├── 👥 user_profiles/           # User Learning Data
 ├── 🚀 main.py                  # Unified Entry Point
+├── ⚙️ config.py                # Centralized configuration management
+├── 📄 .env.example            # Environment configuration template
 ├── 🔧 run_trading_assistant.sh # Enhanced shell script
 ├── 🔧 run_interactive_assistant.sh # Enhanced shell script
 └── 📚 README.md               # This file
@@ -253,9 +259,28 @@ Prompt: Detect your_pattern. Description of pattern detection criteria.
 
 ## 🔧 Configuration Options
 
-### Environment Variables
+### Environment Variables Configuration
+
+The project uses a `.env` file for configuration. Copy `.env.example` to `.env` and update with your settings:
+
 ```bash
-export OPENAI_API_KEY=sk-your-key
+# Copy example configuration
+cp .env.example .env
+
+# Edit with your API key and preferences
+# .env file contains:
+OPENAI_API_KEY=sk-your-api-key-here
+OPENAI_MODEL=gpt-5
+OPENAI_MAX_COMPLETION_TOKENS=1500
+OPENAI_TEMPERATURE=0.2
+# ... and more parameters
+```
+
+The `config.py` file provides centralized configuration management:
+```python
+from config import config
+api_key = config.openai_api_key
+model_config = config.get_openai_config()
 ```
 
 ### Configuration Files
@@ -282,7 +307,7 @@ export OPENAI_API_KEY=sk-your-key
 The system demonstrates capabilities with realistic-looking fake data.
 
 ### OpenAI API Usage
-The system uses OpenAI's GPT-4 for:
+The system uses OpenAI's GPT-5 for:
 - Main trading analysis and psychology assessment
 - Function calling to AI agent tools
 - Natural language query processing
