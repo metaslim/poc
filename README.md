@@ -4,25 +4,6 @@
 
 Professional AI-powered trading assistant with anti-pattern detection, interactive learning, parallel AI tool execution, and personalized coaching - all in one unified script.
 
-## ✅ Latest Fixes (2024-09-16)
-
-### Fix 1: AI tools missing/unavailable error
-**Fixed: AI tools missing/unavailable error** in interactive mode. The `analyze 1` and general query commands now work correctly with all AI agent tools.
-
-**What was fixed:**
-- Interactive queries like "What are market conditions?" now properly use AI agents
-- Commands like `analyze 1` now execute with `detect_trading_patterns` and `check_market_conditions` tools
-- Fixed tool registry integration in `scripts/trading_assistant.py:173-184`
-
-### Fix 2: Smart scenario keyword lookup
-**Fixed: `analyze FOMO` and other keyword-based scenario lookups** now work correctly.
-
-**What was fixed:**
-- Added keyword/description matching in scenario loader agent
-- `analyze FOMO` now finds scenario3 ("FOMO and momentum chasing")
-- Keywords like "revenge", "risk", "emotional" now work for scenario lookup
-- Enhanced `agents/scenario_loader_agent.py:187-196` with description-based matching
-
 ## 🚀 Quick Start
 
 ### Installation
@@ -53,8 +34,6 @@ python main.py demo-agents
 
 💡 **Tip:** Set `DEFAULT_USER_ID=your-username` in `.env` to avoid typing it every time!
 
-🎯 **Key Improvement:** No need to specify scenario paths! The interactive mode auto-discovers all scenarios and lets you load them with smart commands like `analyze 1` or `analyze FOMO`.
-
 ## 🎯 Unified Features
 
 ### ⭐ All-in-One Script: `scripts/trading_assistant.py`
@@ -64,7 +43,6 @@ This single file contains everything:
 **🔍 Professional Analysis**
 - Detects 25+ trading psychology anti-patterns
 - Shows exact trade evidence with dollar amounts
-- Parallel AI agent execution (4x faster)
 - Quantified consequences and solutions
 
 **🎓 Interactive Learning**
@@ -76,7 +54,6 @@ This single file contains everything:
 **🤖 AI Tool Integration**
 - 7 specialized AI agents (news, sentiment, risk, patterns)
 - Intelligent tool selection based on queries
-- Result caching for 90% faster repeat queries
 - Real-time performance statistics
 
 **🧠 Self-Learning System**
@@ -85,25 +62,18 @@ This single file contains everything:
 - Stores session history and improvements
 - Adapts recommendations over time
 
-**🚀 Performance Optimizations**
-- Parallel tool execution (4 agents simultaneously)
-- Smart caching (10-minute TTL for repeated queries)
-- Intelligent tool selection (only relevant agents per query)
-- Real-time progress feedback
-
 ## 📊 Usage Examples
 
 ### Interactive Mode (Best Experience)
 ```bash
-# Start interactive session - no need to specify scenario location!
+# Start interactive session
 python main.py interactive sk-your-api-key-here
 
-# Inside interactive session - scenarios loaded dynamically:
-scenarios                    # 📁 List all 11 available scenarios
-analyze 1                    # ⭐ Load scenario1 with smart tool
-analyze scenario5            # ⭐ Load scenario5 by name
-analyze FOMO                 # ⭐ Find scenario by description (scenario3)
-analyze samples/scenario1/sample_trades.csv  # Traditional path still works
+# Inside interactive session:
+scenarios                    # List all available scenarios
+analyze 1                    # Load scenario1
+analyze scenario5            # Load scenario5 by name
+analyze FOMO                 # Find scenario by description (scenario3)
 Check current market sentiment for AAPL
 What are the biggest risks in tech stocks?
 help
@@ -111,18 +81,8 @@ help
 
 ### Professional Analysis
 ```bash
-# Traditional file path (via main.py)
+# Analyze trading data
 python main.py analyze samples/scenario1 sk-your-api-key-here
-
-# ⭐ NEW: Smart scenario resolution (via main.py is cleaner)
-python main.py analyze samples/scenario1 sk-your-api-key-here
-
-# Output includes:
-# ✅ Exact trade evidence with timestamps
-# ✅ Pattern proof showing specific behaviors
-# ✅ Quantified financial impact ($500+ missed)
-# ✅ Concrete actionable solutions
-# ✅ Performance stats (tools called, cache hits)
 ```
 
 ### Quick Queries
@@ -158,85 +118,7 @@ The system uses 8 specialized AI agents organized in clean, modular architecture
 ### Orchestration Agents
 - **🔍 Comprehensive Agent** - Coordinates multiple agents for complete analysis
 - **🌍 Market Conditions Agent** - Overall market environment assessment
-- **📁 Scenario Loader Agent** - ⭐ **NEW:** Loads trading scenarios from samples folder
-
-### 📁 Scenario Loading System
-The new **Scenario Loader Agent** provides intelligent access to trading scenarios:
-
-**Smart Path Resolution:**
-```bash
-# Multiple ways to load scenarios
-load_scenario("1")           # → loads scenario1
-load_scenario("scenario5")   # → loads scenario5
-load_scenario("FOMO")        # → finds scenario3 (FOMO patterns)
-load_scenario("samples/scenario1/sample_trades.csv")  # → full path
-```
-
-**Available Scenarios (11 total):**
-- `scenario1`: Premature profit-taking patterns
-- `scenario2`: Averaging down addiction
-- `scenario3`: FOMO and momentum chasing
-- `scenario4`: Overtrading and impatience
-- `scenario5`: Revenge trading behavior
-- `scenario6`: Risk management failures
-- `scenario7`: Emotional decision making
-- `scenario8`: Market timing issues
-- `scenario9`: Position sizing errors
-- `scenario10`: Confirmation bias patterns
-- `scenario11`: Correlation blindness
-
-**Usage Examples:**
-```python
-# Load with basic analysis
-agent.load_scenario("1", format="analyzed")
-# Returns: trade counts, symbols, buy/sell ratios
-
-# List all available scenarios
-agent.load_scenario("nonexistent")  # Returns available scenarios list
-```
-
-**Performance Features:**
-- **Parallel execution** - Run multiple agents simultaneously
-- **Smart selection** - Only use relevant agents per query
-- **Result caching** - 90% faster for repeated queries
-- **Real-time feedback** - See progress as analysis runs
-- **Modular architecture** - Each agent is a standalone, testable module
-
-## 📈 Example Analysis Output
-
-```
-## Premature Profit Taking - WARNING
-**EVIDENCE**: SPY: 2025-09-01, SELL 100 @ $422.50 - "Quick 0.6% gain - premature exit"
-**PATTERN PROOF**: Consistently exiting trades with minimal profit before major moves
-**CONSEQUENCES**: Missed 2-3% additional gains per trade ($500+ per position)
-**SOLUTION**: Set trailing stops, predefine profit targets, review missed moves
-
-📊 Performance: 4 tools called, 2 cache hits, 12.3s total
-```
-
-## 📊 Enhanced Scenario System
-
-### Interactive Scenario Access
-```bash
-# Clean access via main.py - scenarios auto-discovered!
-python main.py interactive sk-your-api-key-here
-
-# Inside interactive session - smart scenario loading:
-scenarios                   # 📁 List all 11 scenarios with descriptions
-analyze 1                   # ⚡ Load scenario1 using smart tool
-analyze scenario5          # ⚡ Load scenario5 by name
-analyze FOMO               # 🔍 Find FOMO-related scenario (scenario3)
-```
-
-### Direct Scenario Loading
-```bash
-# Clean file-based access via main.py
-python main.py analyze samples/scenario1 sk-your-api-key-here
-
-# Traditional direct script access (still works)
-python scripts/trading_assistant.py analyze 1 sk-your-api-key-here        # → finds scenario1
-python scripts/trading_assistant.py analyze scenario5 sk-your-api-key-here # → finds scenario5
-```
+- **📁 Scenario Loader Agent** - Loads trading scenarios from samples folder
 
 ## 🧪 Testing & Demo
 
@@ -256,32 +138,14 @@ python scripts/trading_assistant.py query sk-your-api-key-here "Test query"
 
 Inside interactive mode:
 ```
-analyze <scenario>      - ⭐ Smart scenario analysis
-  • analyze 1           - Load scenario1
-  • analyze scenario5   - Load scenario5 by name
-  • analyze FOMO        - Find scenario by description
-  • analyze samples/scenario1/sample_trades.csv - Full file path
-scenarios / list       - List all available scenarios
-help                   - Show available commands
-stats                  - Performance statistics
-profile               - User learning profile
+analyze <scenario>     - Smart scenario analysis
+  • analyze 1          - Load scenario1
+  • analyze scenario5  - Load scenario5 by name
+  • analyze FOMO       - Find scenario by description
+scenarios / list      - List all available scenarios
+help                  - Show available commands
 quit/exit             - End session and save data
 ```
-
-**💡 Pro Tips:**
-- Use smart shortcuts: `analyze 1` instead of long file paths
-- Smart resolution works: `analyze FOMO` finds the FOMO-related scenario
-- Use `scenarios` command to see all available options
-- Set `DEFAULT_USER_ID` in `.env` to avoid typing username repeatedly
-
-## ⚡ Performance Benefits
-
-| Feature | Before | After | Improvement |
-|---------|--------|-------|-------------|
-| Simple queries | 45s | 3s | **93% faster** |
-| Complex analysis | 60s | 26s | **57% faster** |
-| Repeat queries | 45s | 0.1s | **99.8% faster** |
-| Tool calls | Sequential | Parallel | **4x faster** |
 
 ## 📁 Project Structure
 
@@ -294,16 +158,16 @@ quit/exit             - End session and save data
 │   ├── sentiment_agent.py        # Market sentiment
 │   ├── risk_management_agent.py  # Risk assessment
 │   ├── pattern_analysis_agent.py # Trading psychology
-│   ├── scenario_loader_agent.py  # ⭐ NEW: Scenario loading
+│   ├── scenario_loader_agent.py  # Scenario loading
 │   ├── comprehensive_analysis_agent.py # Multi-agent coordination
 │   ├── market_conditions_agent.py # Market environment
 │   ├── agent_manager.py          # Agent orchestration
 │   └── tool_integration.py       # Tool registry (refactored)
 ├── 📜 scripts/
-│   ├── trading_assistant.py      # ⭐ UNIFIED SOLUTION
+│   ├── trading_assistant.py      # Main trading assistant
 │   └── demo_agents.py           # System demonstrations
-├── 📋 prompts/                   # 25+ Psychology Patterns
-├── 📊 samples/                   # 11 Trading Scenarios
+├── 📋 prompts/                   # Psychology patterns
+├── 📊 samples/                   # Trading scenarios
 │   ├── scenario1/               # Premature profit-taking
 │   ├── scenario2/               # Averaging down
 │   ├── scenario3/               # FOMO patterns
@@ -311,17 +175,6 @@ quit/exit             - End session and save data
 ├── 🚀 main.py                   # Entry point wrapper
 └── 📚 README.md                 # This file
 ```
-
-### 🏗️ Architecture Improvements
-
-**Before:** Tools buried as private methods in `tool_integration.py`
-**After:** Clean, modular agent architecture
-
-**Benefits:**
-- ✅ **Better maintainability** - Each agent is independently testable
-- ✅ **Clear separation** - No more buried functionality
-- ✅ **LLM-friendly** - Detailed context helps AI select right tools
-- ✅ **Enhanced documentation** - Both tool descriptions and function docstrings
 
 ## ⚠️ Important Notes
 
@@ -333,22 +186,15 @@ quit/exit             - End session and save data
 ## 🆘 Support
 
 Issues? Try these:
-1. `python main.py demo-agents` - Demo system (no API key needed) ⭐ **RECOMMENDED**
-2. `python scripts/demo_agents.py` - Direct script access (still works)
-3. Check your API key starts with `sk-`
+1. `python main.py demo-agents` - Demo system (no API key needed)
+2. Check your API key starts with `sk-`
 
-**Recommended Usage (via main.py):**
+**Usage:**
 ```bash
-python main.py interactive sk-your-api-key-here          # Start interactive session
-python main.py openai-tools sk-your-api-key-here "your question"  # Quick query
-python main.py analyze samples/scenario1 sk-your-api-key-here      # Direct analysis
-```
-
-**Direct Script Access (still works):**
-```bash
-python scripts/trading_assistant.py interactive sk-your-api-key-here
+python main.py interactive sk-your-api-key-here
+python main.py analyze samples/scenario1 sk-your-api-key-here
 ```
 
 ---
 
-**One Script. Complete Trading Psychology Analysis.** 🎯
+**AI-Powered Trading Psychology Analysis.** 🎯
