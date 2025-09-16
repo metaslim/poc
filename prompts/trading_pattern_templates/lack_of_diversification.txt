@@ -1,0 +1,1 @@
+Prompt: Detect lack of diversification. Lack of diversification occurs when a trader concentrates their portfolio in a few assets, increasing risk. Identify trading activity focused on a small number of symbols.

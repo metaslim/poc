@@ -1,0 +1,1 @@
+Prompt: Detect trend-fighting behavior. Identify when traders consistently trade against the prevailing market trend, attempting to catch falling knives or fight strong momentum. Look for patterns of buying during clear downtrends or selling during strong uptrends without proper technical or fundamental justification.

@@ -1,0 +1,13 @@
+date,action,symbol,quantity,price,notes
+2025-09-01,BUY,SPY,100,420.00,Morning gap up entry
+2025-09-01,SELL,SPY,100,422.50,Quick 0.6% gain - premature exit
+2025-09-01,BUY,QQQ,50,380.00,FOMO into tech rally
+2025-09-01,SELL,QQQ,50,378.00,Stopped out too early
+2025-09-01,BUY,TSLA,20,250.00,Chasing momentum
+2025-09-01,SELL,TSLA,20,248.50,Fear-based exit before reversal
+2025-09-01,BUY,NVDA,15,450.00,Another momentum chase
+2025-09-01,SELL,NVDA,15,447.00,Paper hands - sold before 5% move up
+2025-09-02,BUY,AAPL,30,180.00,Entry on dip
+2025-09-02,SELL,AAPL,30,181.00,Tiny profit taking - left 3% on table
+2025-09-02,BUY,MSFT,25,300.00,Breakout entry
+2025-09-02,SELL,MSFT,25,301.50,Exited before continuation to $310

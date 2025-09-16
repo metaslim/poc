@@ -1,0 +1,1 @@
+Prompt: Detect averaging down. Averaging down occurs when a trader buys more of a losing position to lower the average cost. Look for repeated purchases of the same asset after losses.

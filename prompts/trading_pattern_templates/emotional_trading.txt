@@ -1,0 +1,1 @@
+Prompt: Detect emotional trading. Emotional trading occurs when trades are made based on emotions such as fear, greed, or frustration, rather than analysis. Look for impulsive or erratic trading behavior.

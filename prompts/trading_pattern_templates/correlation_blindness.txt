@@ -1,0 +1,1 @@
+Prompt: Detect correlation blindness in portfolio construction. Identify when traders hold multiple highly correlated positions simultaneously, effectively concentrating risk without realizing it. Look for trades in similar sectors, asset classes, or instruments that move together, creating hidden concentration risk.

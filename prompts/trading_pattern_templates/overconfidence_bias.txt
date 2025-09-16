@@ -1,0 +1,1 @@
+Prompt: Detect overconfidence bias. Overconfidence bias occurs when a trader overestimates their knowledge or predictive ability, leading to excessive risk-taking. Look for patterns of large, frequent trades after a series of wins.

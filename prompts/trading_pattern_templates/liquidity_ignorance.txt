@@ -1,0 +1,1 @@
+Prompt: Detect liquidity ignorance in trade execution. Identify trades in low-volume or illiquid instruments where traders may face difficulty exiting positions, wider bid-ask spreads, or price slippage. Look for patterns where traders consistently ignore volume data or trade during low-liquidity periods.

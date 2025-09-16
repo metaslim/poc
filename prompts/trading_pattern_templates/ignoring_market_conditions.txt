@@ -1,0 +1,1 @@
+Prompt: Detect ignoring market conditions. This pattern is present when a trader makes trades without considering broader market trends or economic indicators. Identify trades that go against prevailing market direction.

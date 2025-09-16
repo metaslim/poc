@@ -1,0 +1,14 @@
+date,action,symbol,quantity,price,notes
+2025-09-01,BUY,AAPL,100,180.00,Initial position - no plan
+2025-09-01,BUY,AAPL,100,178.00,Averaging down first drop
+2025-09-01,BUY,AAPL,150,176.00,Doubling down - getting desperate
+2025-09-01,BUY,AAPL,200,174.00,Tripling position size - martingale
+2025-09-01,SELL,AAPL,550,173.00,Forced exit - margin call threat
+2025-09-02,BUY,TSLA,50,250.00,New symbol, same pattern
+2025-09-02,BUY,TSLA,75,248.00,Adding to loser again
+2025-09-02,BUY,TSLA,100,246.00,Increasing size while losing
+2025-09-02,BUY,TSLA,150,244.00,Desperation position sizing
+2025-09-02,SELL,TSLA,375,242.00,Another forced liquidation
+2025-09-03,BUY,NVDA,25,450.00,Smaller start but same pattern
+2025-09-03,BUY,NVDA,50,445.00,Double down again
+2025-09-03,BUY,NVDA,100,440.00,Quadruple original size

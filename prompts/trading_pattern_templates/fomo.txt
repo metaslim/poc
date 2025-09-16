@@ -1,0 +1,1 @@
+Prompt: Detect FOMO (Fear of Missing Out) trading. FOMO trading happens when trades are made due to market hype or fear of missing opportunities, rather than analysis. Identify impulsive trades during market rallies or news events.

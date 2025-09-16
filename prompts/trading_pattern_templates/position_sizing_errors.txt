@@ -1,0 +1,1 @@
+Prompt: Detect position sizing errors. Look for trades where the position size is disproportionate to account size or risk tolerance. Identify instances where traders risk more than 2-3% of their account on a single trade, or where position sizes vary wildly without clear justification based on conviction or risk assessment.

@@ -1,0 +1,1 @@
+Prompt: Detect anchoring bias. Anchoring bias happens when a trader relies too heavily on initial information (such as entry price) and fails to adjust to new market data. Identify trades that ignore changing market conditions due to fixation on a reference point.

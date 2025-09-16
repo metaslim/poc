@@ -1,0 +1,1 @@
+Prompt: Detect premature profit taking. Premature profit taking occurs when a trader closes winning trades too early out of fear of losing gains. Look for patterns of small profits taken quickly after entry.

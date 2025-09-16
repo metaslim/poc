@@ -1,0 +1,5 @@
+date,action,symbol,quantity,price,notes
+2025-09-01,BUY,TSLA,100,250.00,News-driven FOMO entry
+2025-09-01,SELL,TSLA,100,255.00,Quick 2% gain - emotion high
+2025-09-01,BUY,NVDA,150,450.00,Chasing another news pump
+2025-09-01,SELL,NVDA,150,447.00,Fear after small pullback

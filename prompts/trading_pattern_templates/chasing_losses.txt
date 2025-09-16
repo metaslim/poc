@@ -1,0 +1,1 @@
+Prompt: Detect chasing losses. Chasing losses occurs when a trader increases position size after a loss in an attempt to recover quickly. Look for larger trades following losing trades.

@@ -1,0 +1,1 @@
+Prompt: Detect inconsistent timing patterns. Look for traders who switch between different time horizons without clear strategy - mixing day trades with swing trades, or entering long-term positions while actively day trading. This creates confusion and prevents proper risk management for each time frame.

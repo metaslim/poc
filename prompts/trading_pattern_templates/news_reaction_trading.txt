@@ -1,0 +1,1 @@
+Prompt: Detect impulsive news reaction trading. Identify trades made immediately after news events without proper analysis, often resulting in buying at peaks or selling at troughs. Look for patterns where trade timing coincides with major announcements, earnings releases, or market-moving events without evidence of strategic planning.

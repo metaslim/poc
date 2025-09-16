@@ -1,0 +1,1 @@
+Prompt: Detect ignoring risk management. This pattern is present when a trader risks too much capital on single trades or does not diversify. Identify trades with high risk relative to account size.

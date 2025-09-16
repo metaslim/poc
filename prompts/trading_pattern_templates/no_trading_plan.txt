@@ -1,0 +1,1 @@
+Prompt: Detect lack of trading plan. This pattern is present when trades are made without a clear strategy or plan. Identify random or inconsistent trading decisions.
