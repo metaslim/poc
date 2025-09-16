@@ -31,7 +31,7 @@ class Config:
     @property
     def openai_model(self) -> str:
         """Get OpenAI model name."""
-        return os.getenv('OPENAI_MODEL', 'gpt-5')
+        return os.getenv('OPENAI_MODEL', 'gpt-4.1')
 
     @property
     def openai_max_completion_tokens(self) -> int:
@@ -41,7 +41,7 @@ class Config:
     @property
     def openai_temperature(self) -> float:
         """Get OpenAI temperature setting."""
-        return float(os.getenv('OPENAI_TEMPERATURE', '0.2'))
+        return float(os.getenv('OPENAI_TEMPERATURE', '1.0'))
 
     @property
     def openai_top_p(self) -> float:

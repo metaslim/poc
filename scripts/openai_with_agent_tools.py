@@ -283,12 +283,12 @@ Focus on:
         try:
             # Initial call to OpenAI
             response = self.client.chat.completions.create(
-                model="gpt-5",
+                model="gpt-4.1",
                 messages=messages,
                 tools=functions,
                 tool_choice="auto",
                 max_completion_tokens=2000,
-                temperature=0.3
+                temperature=1.0
             )
 
             # Process the response
@@ -328,12 +328,12 @@ Focus on:
 
                     # Continue the conversation with tool results
                     response = self.client.chat.completions.create(
-                        model="gpt-5",
+                        model="gpt-4.1",
                         messages=messages,
                         tools=functions,
                         tool_choice="auto",
                         max_completion_tokens=2000,
-                        temperature=0.3
+                        temperature=1.0
                     )
                 else:
                     # No more tool calls, we're done

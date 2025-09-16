@@ -221,13 +221,13 @@ class InteractiveTradingAssistant:
 
         try:
             response = self.client.chat.completions.create(
-                model="gpt-5",
+                model="gpt-4.1",
                 messages=[
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": user_prompt}
                 ],
                 max_completion_tokens=1500,
-                temperature=0.2
+                temperature=1.0
             )
 
             return response.choices[0].message.content
@@ -310,13 +310,13 @@ class InteractiveTradingAssistant:
 
         try:
             response = self.client.chat.completions.create(
-                model="gpt-5",
+                model="gpt-4.1",
                 messages=[
                     {"role": "system", "content": "You are a personalized trading coach."},
                     {"role": "user", "content": advice_prompt}
                 ],
                 max_completion_tokens=800,
-                temperature=0.3
+                temperature=1.0
             )
 
             advice = response.choices[0].message.content

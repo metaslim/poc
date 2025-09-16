@@ -270,9 +270,9 @@ cp .env.example .env
 # Edit with your API key and preferences
 # .env file contains:
 OPENAI_API_KEY=sk-your-api-key-here
-OPENAI_MODEL=gpt-5
+OPENAI_MODEL=gpt-4.1
 OPENAI_MAX_COMPLETION_TOKENS=1500
-OPENAI_TEMPERATURE=0.2
+OPENAI_TEMPERATURE=1.0
 # ... and more parameters
 ```
 
@@ -307,7 +307,7 @@ model_config = config.get_openai_config()
 The system demonstrates capabilities with realistic-looking fake data.
 
 ### OpenAI API Usage
-The system uses OpenAI's GPT-5 for:
+The system uses OpenAI's gpt-4.1 for:
 - Main trading analysis and psychology assessment
 - Function calling to AI agent tools
 - Natural language query processing

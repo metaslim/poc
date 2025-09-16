@@ -18,13 +18,25 @@ except ImportError:
     print("Error: OpenAI package not installed. Run: pip install openai")
     sys.exit(1)
 
+# Import configuration
+try:
+    from config import config
+    CONFIG_AVAILABLE = True
+except ImportError:
+    CONFIG_AVAILABLE = False
+
 # Import AI agent tools
 try:
-    from openai_with_agent_tools import OpenAIWithAgentTools
+    from scripts.openai_with_agent_tools import OpenAIWithAgentTools
     AI_TOOLS_AVAILABLE = True
 except ImportError:
-    print("Warning: AI agent tools not available, falling back to basic OpenAI analysis")
-    AI_TOOLS_AVAILABLE = False
+    try:
+        # Try direct import if running from scripts directory
+        from openai_with_agent_tools import OpenAIWithAgentTools
+        AI_TOOLS_AVAILABLE = True
+    except ImportError:
+        print("Warning: AI agent tools not available, falling back to basic OpenAI analysis")
+        AI_TOOLS_AVAILABLE = False
 
 
 def load_trading_data(scenario_folder: str) -> str:
@@ -166,17 +178,39 @@ def detect_anti_patterns_basic(trading_data: str, templates: Dict[str, str], api
     system_prompt = build_system_prompt()
     user_prompt = build_user_prompt(trading_data, templates)
 
-    response = client.chat.completions.create(
-        model="gpt-5",
-        messages=[
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_prompt}
-        ],
-        max_completion_tokens=1200,
-        temperature=0.1
-    )
+    # Use config if available, otherwise use defaults
+    if CONFIG_AVAILABLE:
+        openai_config = config.get_openai_config()
+        openai_config["stream"] = True
+        stream = client.chat.completions.create(
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt}
+            ],
+            **openai_config
+        )
+    else:
+        stream = client.chat.completions.create(
+            model="gpt-4.1",
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt}
+            ],
+            max_completion_tokens=1500,
+            temperature=1.0,
+            stream=True
+        )
 
-    return response.choices[0].message.content
+    # Collect streamed response
+    response_text = ""
+    for chunk in stream:
+        if chunk.choices[0].delta.content is not None:
+            content = chunk.choices[0].delta.content
+            response_text += content
+            print(content, end='', flush=True)
+
+    print()  # Add newline at end
+    return response_text
 
 
 def validate_inputs(scenario_folder: str, api_key: str) -> Optional[str]:
