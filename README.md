@@ -4,14 +4,24 @@
 
 Professional AI-powered trading assistant with anti-pattern detection, interactive learning, parallel AI tool execution, and personalized coaching - all in one unified script.
 
-## ✅ Latest Fix (2024-09-16)
+## ✅ Latest Fixes (2024-09-16)
 
+### Fix 1: AI tools missing/unavailable error
 **Fixed: AI tools missing/unavailable error** in interactive mode. The `analyze 1` and general query commands now work correctly with all AI agent tools.
 
 **What was fixed:**
 - Interactive queries like "What are market conditions?" now properly use AI agents
 - Commands like `analyze 1` now execute with `detect_trading_patterns` and `check_market_conditions` tools
 - Fixed tool registry integration in `scripts/trading_assistant.py:173-184`
+
+### Fix 2: Smart scenario keyword lookup
+**Fixed: `analyze FOMO` and other keyword-based scenario lookups** now work correctly.
+
+**What was fixed:**
+- Added keyword/description matching in scenario loader agent
+- `analyze FOMO` now finds scenario3 ("FOMO and momentum chasing")
+- Keywords like "revenge", "risk", "emotional" now work for scenario lookup
+- Enhanced `agents/scenario_loader_agent.py:187-196` with description-based matching
 
 ## 🚀 Quick Start
 

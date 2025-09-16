@@ -177,12 +177,23 @@ class ScenarioLoaderAgent(BaseAgent):
         except ValueError:
             pass
 
-        # Partial name match
+        # Partial name match (directory name)
         for scenario_dir in samples_dir.iterdir():
             if scenario_dir.is_dir() and scenario.lower() in scenario_dir.name.lower():
                 csv_file = scenario_dir / "sample_trades.csv"
                 if csv_file.exists():
                     return str(csv_file)
+
+        # Keyword/description match (search in scenario descriptions)
+        scenario_lower = scenario.lower()
+        for scenario_dir in sorted(samples_dir.iterdir()):
+            if scenario_dir.is_dir():
+                csv_file = scenario_dir / "sample_trades.csv"
+                if csv_file.exists():
+                    description = self.get_scenario_description(scenario_dir.name).lower()
+                    # Check if any word in the scenario matches any word in the description
+                    if any(word in description for word in scenario_lower.split()):
+                        return str(csv_file)
 
         return None
 
