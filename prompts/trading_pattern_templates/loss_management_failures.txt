@@ -1,0 +1,53 @@
+Prompt: Detect loss management failures including averaging down, loss chasing, and excessive holding of losing positions due to loss aversion and hope rather than systematic risk management.
+
+SPECIFIC DETECTION CRITERIA:
+• Multiple purchases of same symbol with decreasing average price (averaging down)
+• Position size increases >30% immediately following losing trades (loss chasing)
+• Positions held significantly longer when showing losses vs gains (loss aversion)
+• Doubling down on losing positions without fundamental thesis change
+• Stop-losses repeatedly moved lower rather than executed
+• Risk escalation after losses to "make back" money quickly
+
+AVERAGING DOWN PATTERNS:
+• Adding to positions breaking technical support levels
+• Dollar cost averaging into declining fundamentals
+• Justifying additions with "cheaper" rather than "better" reasoning
+• Ignoring technical breakdown while adding to position
+• Position size doubles/triples at lower prices without proportional upside increase
+
+LOSS CHASING ESCALATION:
+• Switching to higher-risk assets (options, leveraged ETFs) after losses
+• Taking opposite trades immediately after stop-outs (revenge trading)
+• Moving from stocks to options after equity losses
+• Increasing from 1x to 2x to 3x leveraged products
+• Risk per trade increases >50% after losing streaks (3+ losses)
+
+EXCESSIVE HOLDING PATTERNS:
+• Average holding period for losers >3x longer than winners
+• Converting day trades to swing trades when losing
+• Stop-losses moved or removed to avoid realization
+• "Investment" rationalization for failed trades
+• Mental stops used instead of hard stops, leading to emotional overrides
+
+PSYCHOLOGICAL MARKERS:
+• Notes contain "getting a better price", "can't go lower", "need to make it back"
+• Time between loss recognition and next trade <30 minutes (revenge)
+• Refusal to admit original entry was mistimed
+• Treating unrealized losses as "paper" rather than real risk
+• Increased conviction as price falls without new fundamental data
+
+RISK ESCALATION METRICS:
+• Maximum loss potential increases >50% from original position
+• Kelly Criterion violations (betting more than optimal based on edge)
+• Risk-of-ruin probability increases above 5%
+• Consecutive losing trades with increasing monetary losses
+• Account drawdown accelerates (losses increase in magnitude)
+
+PERFORMANCE CONSEQUENCES:
+• Win rate drops below 30% during loss-chasing periods
+• Loss aversion ratio: hold losers 2.5x longer than winners
+• Maximum drawdown events coincide with loss management failures
+• Sharpe ratio deterioration during chase periods
+• Average loss per losing trade significantly exceeds average gain
+
+CALCULATE IMPACT: Compare performance during loss management vs disciplined periods, measure holding period differentials, analyze risk escalation patterns and account health deterioration
