@@ -38,6 +38,42 @@ except ImportError:
     CONFIG_AVAILABLE = False
 
 
+class LoadingIndicator:
+    """Animated loading indicator for API calls."""
+
+    def __init__(self, message="Processing", animation_chars="⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏"):
+        self.message = message
+        self.animation_chars = animation_chars
+        self.is_loading = False
+        self.thread = None
+
+    def start(self):
+        """Start the loading animation."""
+        if self.is_loading:
+            return
+
+        self.is_loading = True
+        self.thread = threading.Thread(target=self._animate, daemon=True)
+        self.thread.start()
+
+    def stop(self):
+        """Stop the loading animation."""
+        self.is_loading = False
+        if self.thread:
+            self.thread.join(timeout=0.1)
+        # Clear the line
+        print("\r" + " " * (len(self.message) + 10), end="\r", flush=True)
+
+    def _animate(self):
+        """Animation loop."""
+        char_index = 0
+        while self.is_loading:
+            char = self.animation_chars[char_index % len(self.animation_chars)]
+            print(f"\r{char} {self.message}...", end="", flush=True)
+            char_index += 1
+            time.sleep(0.1)
+
+
 class ToolCache:
     """Thread-safe cache for AI tool results with TTL."""
 
@@ -309,13 +345,19 @@ class TradingAssistant:
         messages.append({"role": "user", "content": tool_context})
 
         try:
-            openai_config = self._get_openai_config()
-            response = self.client.chat.completions.create(
-                messages=messages,
-                **openai_config
-            )
+            # Show loading indicator for OpenAI API call
+            loading = LoadingIndicator("🤖 Analyzing with AI")
+            loading.start()
 
-            result = response.choices[0].message.content
+            try:
+                openai_config = self._get_openai_config()
+                response = self.client.chat.completions.create(
+                    messages=messages,
+                    **openai_config
+                )
+                result = response.choices[0].message.content
+            finally:
+                loading.stop()
 
             # Update stats and learning
             analysis_time = time.time() - start_time
@@ -475,15 +517,22 @@ class TradingAssistant:
         if not selected_tools:
             # Direct OpenAI query without tools
             try:
-                openai_config = self._get_openai_config()
-                response = self.client.chat.completions.create(
-                    messages=[
-                        {"role": "system", "content": "You are a helpful trading assistant."},
-                        {"role": "user", "content": query}
-                    ],
-                    **openai_config
-                )
-                return response.choices[0].message.content
+                # Show loading indicator for OpenAI API call
+                loading = LoadingIndicator("🤖 Processing query")
+                loading.start()
+
+                try:
+                    openai_config = self._get_openai_config()
+                    response = self.client.chat.completions.create(
+                        messages=[
+                            {"role": "system", "content": "You are a helpful trading assistant."},
+                            {"role": "user", "content": query}
+                        ],
+                        **openai_config
+                    )
+                    return response.choices[0].message.content
+                finally:
+                    loading.stop()
             except Exception as e:
                 return f"Error: {str(e)}"
 
@@ -519,15 +568,22 @@ class TradingAssistant:
             tool_context += f"\n{tool_name}:\n{result}\n"
 
         try:
-            openai_config = self._get_openai_config()
-            response = self.client.chat.completions.create(
-                messages=[
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": f"Query: {query}\n\n{tool_context}"}
-                ],
-                **openai_config
-            )
-            return response.choices[0].message.content
+            # Show loading indicator for OpenAI API call
+            loading = LoadingIndicator("🤖 Generating response")
+            loading.start()
+
+            try:
+                openai_config = self._get_openai_config()
+                response = self.client.chat.completions.create(
+                    messages=[
+                        {"role": "system", "content": system_prompt},
+                        {"role": "user", "content": f"Query: {query}\n\n{tool_context}"}
+                    ],
+                    **openai_config
+                )
+                return response.choices[0].message.content
+            finally:
+                loading.stop()
         except Exception as e:
             return f"Error synthesizing results: {str(e)}"
 
@@ -588,6 +644,96 @@ class TradingAssistant:
         if "risk" in query.lower():
             self.user_profile["learning_preferences"]["risk_queries"] = \
                 self.user_profile["learning_preferences"].get("risk_queries", 0) + 1
+
+        # AI-powered profile analysis after every 3 interactions
+        total_interactions = len(self.session_data["interactions"])
+        if total_interactions % 3 == 0 and total_interactions > 0:
+            self._analyze_user_profile_with_ai()
+
+    def _analyze_user_profile_with_ai(self):
+        """Use AI to analyze user interactions and update profile."""
+        try:
+            # Gather interaction data for analysis
+            recent_queries = [interaction["query"] for interaction in self.session_data["interactions"][-10:]]
+            session_summaries = [f"Session {i+1}: {session['interactions']} interactions, {session['analyses']} analyses"
+                                for i, session in enumerate(self.user_profile["session_history"][-5:])]
+
+            analysis_prompt = f"""
+            Analyze this user's trading assistant usage and provide profile insights:
+
+            Recent Queries:
+            {chr(10).join(f"- {query}" for query in recent_queries)}
+
+            Session History:
+            {chr(10).join(session_summaries)}
+
+            Current Profile:
+            - Trading Experience: {self.user_profile['trading_experience']}
+            - Risk Tolerance: {self.user_profile['risk_tolerance']}
+            - Learning Preferences: {self.user_profile['learning_preferences']}
+
+            Based on their queries and usage patterns, provide a JSON response with:
+            {{
+                "trading_experience": "beginner/intermediate/advanced",
+                "risk_tolerance": "conservative/medium/aggressive",
+                "detected_patterns": {{"pattern_name": "description"}},
+                "improvement_areas": ["area1", "area2"],
+                "learning_preferences": {{"preference_type": count}}
+            }}
+
+            Focus on their actual behavior, question complexity, and trading focus areas.
+            """
+
+            # Show loading indicator for AI analysis
+            loading = LoadingIndicator("🧠 Analyzing user profile")
+            loading.start()
+
+            try:
+                openai_config = self._get_openai_config()
+                response = self.client.chat.completions.create(
+                    messages=[
+                        {"role": "system", "content": "You are a trading psychology expert analyzing user behavior patterns. Return only valid JSON."},
+                        {"role": "user", "content": analysis_prompt}
+                    ],
+                    **openai_config
+                )
+
+                # Parse AI response and update profile
+                ai_analysis = response.choices[0].message.content.strip()
+                if ai_analysis.startswith('```json'):
+                    ai_analysis = ai_analysis[7:-3]
+                elif ai_analysis.startswith('```'):
+                    ai_analysis = ai_analysis[3:-3]
+
+                import json
+                profile_updates = json.loads(ai_analysis)
+
+                # Update profile with AI insights
+                if "trading_experience" in profile_updates:
+                    self.user_profile["trading_experience"] = profile_updates["trading_experience"]
+
+                if "risk_tolerance" in profile_updates:
+                    self.user_profile["risk_tolerance"] = profile_updates["risk_tolerance"]
+
+                if "detected_patterns" in profile_updates:
+                    self.user_profile["detected_patterns"].update(profile_updates["detected_patterns"])
+
+                if "improvement_areas" in profile_updates:
+                    # Add new areas, avoid duplicates
+                    for area in profile_updates["improvement_areas"]:
+                        if area not in self.user_profile["improvement_areas"]:
+                            self.user_profile["improvement_areas"].append(area)
+
+                if "learning_preferences" in profile_updates:
+                    self.user_profile["learning_preferences"].update(profile_updates["learning_preferences"])
+
+                print(f"🧠 Profile updated with AI insights: {profile_updates.get('trading_experience', 'N/A')} trader")
+
+            finally:
+                loading.stop()
+
+        except Exception as e:
+            print(f"Note: Profile analysis skipped ({str(e)})")
 
     def _end_session(self):
         """End session and save learning data."""
