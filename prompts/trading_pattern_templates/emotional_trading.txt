@@ -1,1 +1,29 @@
-Prompt: Detect emotional trading. Emotional trading occurs when trades are made based on emotions such as fear, greed, or frustration, rather than analysis. Look for impulsive or erratic trading behavior.
+Prompt: Detect emotional trading patterns driven by fear, greed, frustration, or euphoria rather than systematic analysis.
+
+SPECIFIC DETECTION CRITERIA:
+• Trades executed within 30 minutes of major market moves (panic/FOMO entries)
+• Position sizes that deviate significantly (>50%) from typical trade size without risk management justification
+• Multiple rapid entries/exits in same symbol within short timeframes (<2 hours)
+• Trading during high-volatility events (earnings, FOMC) with emotional language in notes
+• Revenge trading: Immediately entering opposite position after a loss
+• Weekend gap trading with impulsive Monday morning entries
+
+EMOTIONAL LANGUAGE INDICATORS:
+• Fear: "market crashing", "can't lose more", "getting out now", "too scary"
+• Greed: "can't miss this", "easy money", "going all-in", "to the moon"
+• Frustration: "stupid market", "should have known", "this is rigged"
+• Euphoria: "printing money", "unstoppable", "found the secret"
+
+QUANTIFIABLE SIGNALS:
+• Sharpe ratio drops below 0.5 during emotional trading clusters
+• Maximum drawdown increases >15% during high-emotion periods
+• Win rate differs by >20% between calm vs volatile market days
+• Position holding time standard deviation >3x normal during emotional periods
+
+TIMING PATTERNS:
+• Trading frequency spikes 3x+ after 5%+ market moves
+• Trades clustered around market open/close without systematic reason
+• Weekend research followed by impulsive Monday execution
+• Late-night trading after hours with poor risk management
+
+CALCULATE IMPACT: Compare emotional vs systematic trading performance and frequency

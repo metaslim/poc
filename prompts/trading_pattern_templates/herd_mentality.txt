@@ -1,1 +1,25 @@
-Prompt: Detect herd mentality. Herd mentality is when a trader follows the crowd without independent analysis, often during market bubbles or panics. Identify trades that coincide with large market movements or popular trends.
+Prompt: Detect herd mentality where trading decisions follow crowd behavior rather than independent analysis.
+
+SPECIFIC DETECTION CRITERIA:
+• Trading based on social media sentiment or forums
+• Following "guru" recommendations without independent verification
+• Buying into popular stocks without understanding business
+• Selling during panic periods due to crowd behavior
+• FOMO entries during social media hype cycles
+• Abandoning profitable strategies due to peer pressure
+
+QUANTIFIABLE SIGNALS:
+• Win rate decreases during high social sentiment periods
+• Position size increases with social validation
+• Trading frequency correlates with social media activity
+• Worst performing trades coincide with peak social interest
+• Strategy abandonment follows crowd psychological shifts
+
+SOCIAL BEHAVIOR INDICATORS:
+• Trading volume and social media mentions strongly correlated
+• Position entries coincide with trending hashtags or discussions
+• Strategy changes follow popular trading personalities
+• Risk tolerance varies with crowd sentiment
+• Exit timing influenced by community panic/euphoria
+
+CALCULATE IMPACT: Measure performance, risk metrics, and behavioral consistency across different periods

@@ -1,1 +1,52 @@
-Prompt: Detect position sizing errors. Look for trades where the position size is disproportionate to account size or risk tolerance. Identify instances where traders risk more than 2-3% of their account on a single trade, or where position sizes vary wildly without clear justification based on conviction or risk assessment.
+Prompt: Detect systematic position sizing errors including risk-inappropriate sizing, volatility-ignorant allocation, and inconsistent sizing methodology that leads to suboptimal risk-adjusted returns.
+
+SPECIFIC DETECTION CRITERIA:
+• Position risk exceeds 3% of account value on single trades
+• Same dollar amount used for high and low volatility assets
+• Position sizing based on available cash rather than risk calculation
+• No adjustment for correlation between positions in portfolio
+• Sizing increases after wins, decreases after losses (hot-hand fallacy)
+• All positions sized identically regardless of conviction or setup quality
+
+VOLATILITY-IGNORANT SIZING:
+• Same position size for 20% volatility crypto and 5% volatility utilities
+• No consideration of Average True Range (ATR) in position calculations
+• Stop-loss levels ignored in position size determination
+• Options positions sized like stock positions without volatility adjustment
+• Earnings announcements not factored into position sizing decisions
+
+RISK CALCULATION ERRORS:
+• Using market value instead of risk amount for position sizing
+• Ignoring stop-loss distance when calculating share quantity
+• No consideration of gap risk or overnight holding exposure
+• Portfolio heat calculations missing - total risk unknown
+• Correlation risk not factored into individual position sizes
+
+PSYCHOLOGICAL SIZING BIASES:
+• Larger positions on "sure thing" trades (overconfidence)
+• Smaller positions on best risk/reward setups due to fear
+• Position size influenced by recent performance rather than systematic rules
+• Round number bias: always buying 100 shares regardless of price
+• Account balance anchoring: sizing based on total cash not risk capital
+
+SYSTEMATIC METHODOLOGY ABSENCE:
+• No consistent formula for calculating position sizes
+• Risk per trade varies based on mood or market conditions
+• No differentiation between high-conviction and low-conviction trades
+• Position sizing rules change frequently without backtesting
+• No consideration of Kelly Criterion or other mathematical frameworks
+
+PORTFOLIO-LEVEL ERRORS:
+• Individual positions appropriately sized but total portfolio over-leveraged
+• Concentration risk not considered in sizing individual positions
+• No rebalancing of position sizes as account grows or shrinks
+• Correlated positions sized as if they were independent risks
+• No stress testing of position sizes under adverse scenarios
+
+PERFORMANCE IMPACT INDICATORS:
+• Sharpe ratio degradation due to excessive position variance
+• Large drawdowns from single oversized positions
+• Missed opportunities due to undersized high-probability trades
+• Risk-adjusted returns below optimal due to sizing inefficiency
+
+CALCULATE IMPACT: Compare actual position sizes vs Kelly optimal sizing, measure performance impact of sizing inconsistencies, analyze drawdown attribution to position sizing errors

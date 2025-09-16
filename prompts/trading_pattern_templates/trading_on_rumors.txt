@@ -1,1 +1,0 @@
-Prompt: Detect trading on rumors. This pattern is present when trades are made based on unverified information or market rumors, rather than analysis. Identify impulsive trades following news or social media events.

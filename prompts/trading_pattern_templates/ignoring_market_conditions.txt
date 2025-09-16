@@ -1,1 +1,40 @@
-Prompt: Detect ignoring market conditions. This pattern is present when a trader makes trades without considering broader market trends or economic indicators. Identify trades that go against prevailing market direction.
+Prompt: Detect traders who ignore broader market conditions and context, making trades without considering overall market trends, sector rotation, volatility regimes, or macroeconomic factors.
+
+SPECIFIC DETECTION CRITERIA:
+• Long positions during clear bear market trends or high VIX periods
+• Buying growth stocks during rising interest rate environments
+• Trading individual stocks without considering sector performance
+• Ignoring earnings season volatility when position sizing
+• Fighting established market trends with contrarian positions
+• No adjustment to trading style during different market regimes
+
+MARKET CONTEXT IGNORANCE:
+• Trading tech stocks identically during both growth and value rotations
+• Same position sizes during low and high volatility periods
+• No differentiation between bull market and bear market strategies
+• Ignoring Federal Reserve policy changes impact on sectors
+• Trading without awareness of economic calendar events
+• Missing sector rotation signals and broad market shifts
+
+QUANTIFIABLE SIGNALS:
+• Win rate significantly lower during unfavorable market conditions
+• Position correlations with market indices ignored in sizing
+• No strategy adjustment when VIX moves >50% from historical average
+• Sector weightings don't reflect current market leadership
+• Trading frequency unchanged regardless of market volatility regime
+
+MISSED MARKET SIGNALS:
+• Continued buying during distribution phases
+• Ignoring breadth deterioration (advance/decline ratios)
+• Missing leadership changes between sectors
+• No adjustment for seasonal patterns or calendar effects
+• Trading through earnings seasons without volatility adjustment
+
+REGIME BLINDNESS INDICATORS:
+• Same trading approach in trending vs choppy markets
+• No recognition of risk-on vs risk-off environments
+• Missing correlation breakdowns during crisis periods
+• Ignoring yield curve signals for growth vs value rotation
+• No adjustment for central bank policy cycle impacts
+
+CALCULATE IMPACT: Compare performance during favorable vs unfavorable market conditions, measure strategy effectiveness across different market regimes

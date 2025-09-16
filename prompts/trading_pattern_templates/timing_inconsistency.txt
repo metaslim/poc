@@ -1,1 +1,46 @@
-Prompt: Detect inconsistent timing patterns. Look for traders who switch between different time horizons without clear strategy - mixing day trades with swing trades, or entering long-term positions while actively day trading. This creates confusion and prevents proper risk management for each time frame.
+Prompt: Detect inconsistent timing and time horizon patterns where traders mix incompatible timeframes, creating portfolio conflicts and suboptimal risk management across different holding periods.
+
+SPECIFIC DETECTION CRITERIA:
+• Day trading and swing trading same symbols simultaneously
+• Position sizes inappropriate for intended holding period
+• Stop-losses set for day trades used on swing positions
+• Technical analysis timeframes mismatched with holding intentions
+• Risk management rules inconsistent across different time horizons
+• No clear distinction between scalping, day trading, and investing positions
+
+TIME HORIZON CONFLICTS:
+• Opening long-term position while actively day trading same sector
+• Using 5-minute charts for position intended to hold for weeks
+• Day trading volatility interfering with longer-term trend capture
+• Short-term noise affecting longer-term position management decisions
+• Mixing high-frequency and low-frequency strategies without separation
+
+INCONSISTENT EXECUTION PATTERNS:
+• Same symbols traded with different time horizons within days
+• Position sizing ignores intended holding period (same size for 1-day vs 1-month)
+• Entry criteria changes based on intraday emotions vs planned timeframe
+• Exit strategies switch mid-trade between short-term and long-term approaches
+• Risk per trade varies based on impatience rather than systematic timeframe rules
+
+ANALYSIS MISMATCH INDICATORS:
+• Using daily charts for scalping decisions
+• Weekly trend analysis ignored in day trading
+• Fundamental analysis applied to minute-by-minute trades
+• Economic events considered for 30-minute positions
+• Technical patterns from wrong timeframes used for entry/exit
+
+PORTFOLIO COHERENCE PROBLEMS:
+• Day trading gains offset by swing trading losses in same stocks
+• Conflicting positions: long-term bearish while day trading long
+• Risk management confusion due to multiple timeframe exposures
+• Correlation increases when different timeframes converge negatively
+• Capital allocation inefficient across competing time strategies
+
+PERFORMANCE DEGRADATION SIGNALS:
+• Returns inconsistent due to timeframe strategy conflicts
+• Higher transaction costs from excessive timeframe switching
+• Missed opportunities in primary timeframe due to secondary timeframe distractions
+• Emotional decision-making increases when managing multiple timeframes
+• Strategy effectiveness impossible to measure due to mixed approaches
+
+CALCULATE IMPACT: Analyze performance by separating different time horizons, measure opportunity cost of timeframe conflicts, compare focused vs mixed-timeframe performance

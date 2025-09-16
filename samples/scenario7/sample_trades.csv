@@ -1,10 +1,10 @@
-date,action,symbol,quantity,price,notes
-2025-09-01,BUY,TSLA,100,250.00,Initial position
-2025-09-01,SELL,TSLA,150,245.00,Loss triggered emotional response
-2025-09-01,BUY,TSLA,300,242.00,Doubled down after loss
-2025-09-01,SELL,TSLA,300,238.00,Panic sell - revenge trading pattern
-2025-09-01,BUY,NVDA,200,450.00,Switched symbols after TSLA loss
-2025-09-01,SELL,NVDA,200,440.00,Quick loss again
-2025-09-01,BUY,AAPL,500,180.00,Tripled position size
-2025-09-01,SELL,AAPL,500,175.00,Another loss
-2025-09-02,BUY,MSFT,1000,300.00,Massive position - desperate recovery attempt
+date,action,symbol,quantity,price
+2025-09-01,BUY,TSLA,100,250.00
+2025-09-01,SELL,TSLA,150,245.00
+2025-09-01,BUY,TSLA,300,242.00
+2025-09-01,SELL,TSLA,300,238.00
+2025-09-01,BUY,NVDA,200,450.00
+2025-09-01,SELL,NVDA,200,440.00
+2025-09-01,BUY,AAPL,500,180.00
+2025-09-01,SELL,AAPL,500,175.00
+2025-09-02,BUY,MSFT,1000,300.00

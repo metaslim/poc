@@ -1,1 +1,63 @@
-Prompt: Detect trend-fighting behavior. Identify when traders consistently trade against the prevailing market trend, attempting to catch falling knives or fight strong momentum. Look for patterns of buying during clear downtrends or selling during strong uptrends without proper technical or fundamental justification.
+Prompt: Detect trend-fighting behavior where traders consistently trade against established trends, attempting to catch falling knives or fade strong momentum without proper reversal signals.
+
+SPECIFIC DETECTION CRITERIA:
+• Long entries during clear downtrends below major moving averages
+• Short positions or profit-taking during strong uptrends above resistance
+• Buying stocks making new 52-week lows without reversal confirmation
+• Selling stocks breaking out to new highs without distribution signals
+• Contrarian positions against prevailing sector or market momentum
+• Fighting trends across multiple timeframes simultaneously
+
+FALLING KNIFE CATCHING:
+• Buying steep declines without waiting for stabilization or base building
+• Averaging down in stocks breaking major support levels
+• Long positions in stocks with consistent lower highs and lower lows
+• Buying during capitulation or panic selling without volume confirmation
+• Entry during earnings disasters or fundamental deterioration
+• Ignoring technical breakdown patterns like head and shoulders or double tops
+
+MOMENTUM FADING PATTERNS:
+• Shorting or selling during breakouts from consolidation patterns
+• Taking profits too early in strong trending moves
+• Fighting parabolic advances without overbought confirmation
+• Selling into strength during sector rotation or thematic rallies
+• Contrarian bets against established momentum without reversal signals
+• Premature reversal calls based on minor pullbacks in strong trends
+
+TREND IDENTIFICATION FAILURES:
+• No recognition of trend direction across different timeframes
+• Trading against daily trend while weekly/monthly trends align opposite
+• Ignoring volume confirmation of trend strength or weakness
+• Misidentifying consolidation patterns as trend reversals
+• Using wrong timeframe analysis for position duration intended
+• No distinction between correction and trend change
+
+REVERSAL TIMING ERRORS:
+• Attempting to pick bottoms without oversold bounce confirmation
+• Calling tops without overbought distribution evidence
+• No waiting for trend line breaks or moving average reclaims
+• Ignoring momentum divergences that could signal continuation vs reversal
+• Early entries without proper risk/reward given trend strength
+• No confirmation from multiple technical indicators
+
+FUNDAMENTAL VS TECHNICAL CONFLICTS:
+• Buying value traps (fundamentally cheap, technically weak)
+• Fighting technical trends with fundamental analysis alone
+• Ignoring fundamental deterioration while fighting technical decline
+• No consideration of earnings revisions trend vs stock price trend
+• Sector rotation ignorance when fighting individual stock trends
+
+MARKET CONTEXT IGNORANCE:
+• Fighting individual stock trends without considering market regime
+• Contrarian trades during risk-off periods when correlations increase
+• Ignoring Fed policy impact on growth vs value trend leadership
+• Missing macro trend changes affecting sector/style performance
+• Trading against currency or commodity trends affecting stock sectors
+
+RISK MANAGEMENT IN TREND FIGHTS:
+• Wider stops needed but not implemented when fighting trends
+• Position sizes inappropriate for counter-trend risk
+• No recognition that trend-fighting requires different risk parameters
+• Stop-loss levels placed at arbitrary points vs trend-based levels
+
+CALCULATE IMPACT: Compare trend-fighting performance vs trend-following, measure success rate of counter-trend trades, analyze drawdown patterns during trend-fighting periods

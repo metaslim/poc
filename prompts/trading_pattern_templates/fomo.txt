@@ -1,1 +1,46 @@
-Prompt: Detect FOMO (Fear of Missing Out) trading. FOMO trading happens when trades are made due to market hype or fear of missing opportunities, rather than analysis. Identify impulsive trades during market rallies or news events.
+Prompt: Detect FOMO (Fear of Missing Out) trading where decisions are driven by fear of missing opportunities rather than systematic analysis, often resulting in buying tops and chasing momentum.
+
+SPECIFIC DETECTION CRITERIA:
+• Trades executed within 2 hours of significant price moves (>5% intraday)
+• Position entries near 52-week highs or after consecutive green days
+• Trades during market euphoria periods or parabolic price action
+• Buying into stocks mentioned in social media/news without prior analysis
+• Entering positions without proper risk management during hot sectors
+• Missing normal entry criteria but trading due to "can't miss this move"
+
+FOMO TRIGGERING EVENTS:
+• Gap-ups >3% followed by immediate chase entries
+• Earnings beats with momentum continuation plays
+• Sector rotation into hot themes (AI, crypto, biotech breakthroughs)
+• Celebrity/influencer mentions leading to impulsive entries
+• "Meme stock" rallies and social media hype cycles
+• Breaking news causing immediate market reaction trades
+
+PSYCHOLOGICAL INDICATORS:
+• Notes contain urgency: "can't miss this", "going parabolic", "last chance"
+• Abandoning normal position sizing for larger "opportunity" trades
+• Trading symbols outside normal watchlist/expertise area
+• Entering positions without exit strategy or profit targets
+• Rationalization: "it's different this time", "this is the breakout"
+
+TIMING AND ENTRY ANALYSIS:
+• Entries cluster around daily/weekly highs rather than support levels
+• Buy orders executed at ask price rather than using limit orders
+• Position timing coincides with high RSI (>70) or extreme sentiment readings
+• Trades made during market hours rather than planned during closed markets
+• Entry points show poor risk/reward ratios (<1:2)
+
+QUANTIFIABLE SIGNALS:
+• Win rate on momentum chase trades <40%
+• Average entry point vs subsequent high shows <10% upside capture
+• Maximum favorable excursion significantly lower than normal trades
+• Time to first drawdown averages <24 hours on FOMO trades
+• Position size positively correlates with recent market performance
+
+OUTCOME PATTERNS:
+• Frequent buying near short-term tops followed by immediate drawdowns
+• Holding periods shorter on winning FOMO trades vs systematic trades
+• Stop-losses triggered more frequently due to poor entry timing
+• Portfolio heat increases during FOMO periods (multiple risky positions)
+
+CALCULATE IMPACT: Compare entry timing, holding periods, and performance of FOMO-driven vs systematic trades

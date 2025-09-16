@@ -1,1 +1,44 @@
-Prompt: Detect overtrading behavior by analyzing trade frequency and quality. Look for: 1) More than 10 trades per day consistently, 2) Trades executed within minutes of each other without clear strategy, 3) High turnover ratio relative to account size, 4) Multiple entries/exits in same symbol within short timeframes, 5) Evidence of impulsive decision-making rather than planned execution. Consider transaction costs eating into profits and lack of patience for setups to develop.
+Prompt: Detect overtrading patterns where excessive trading frequency destroys returns through transaction costs, reduced selectivity, and decision fatigue.
+
+SPECIFIC DETECTION CRITERIA:
+• Trading frequency >2 standard deviations above historical average
+• Multiple entries/exits per day without systematic justification
+• Round-trip trades (buy then sell same symbol) within same trading session
+• Trading during low-volume/choppy market conditions
+• Position turnover rate >300% monthly (holding period <10 days average)
+• Making trades just to "do something" rather than waiting for setups
+
+OVERTRADING TRIGGERS:
+• Boredom trading: Trades during sideways/consolidation periods
+• News-driven impulse: Multiple trades following each news event
+• FOMO cascades: Chasing multiple different "hot" sectors/stocks daily
+• Profit euphoria: Increasing frequency after winning streaks
+• Loss recovery: Increasing frequency to "make back" losses quickly
+
+QUANTIFIABLE SIGNALS:
+• Sharpe ratio inversely correlates with trading frequency
+• Transaction costs exceed 2% of portfolio value monthly
+• Win rate drops below 45% during high-frequency periods
+• Average trade profit decreases as frequency increases
+• Time in market vs time researching ratio falls below 5:1
+
+DECISION FATIGUE INDICATORS:
+• Trade quality deteriorates throughout trading day
+• Later trades show worse risk/reward ratios
+• Position sizing becomes erratic with increased frequency
+• Stop-loss discipline decreases with more daily trades
+• Notes become shorter/less analytical with higher frequency
+
+PORTFOLIO IMPACT METRICS:
+• Monthly turnover exceeds 100% without systematic rebalancing
+• Trading costs reduce net returns by >3% annually
+• Correlation between number of trades and drawdown periods
+• Best performing periods coincide with lower trading frequency
+• Cash utilization stays above 95% (no patience for better entries)
+
+SYSTEMATIC VS DISCRETIONARY:
+• Deviation from original trading plan increases with frequency
+• Trades outside primary strategy/timeframe increase
+• Risk per trade decreases but total risk increases due to quantity
+
+CALCULATE IMPACT: Compare returns per trade, transaction costs, and risk-adjusted returns across different frequency periods

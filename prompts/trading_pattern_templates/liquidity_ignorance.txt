@@ -1,1 +1,51 @@
-Prompt: Detect liquidity ignorance in trade execution. Identify trades in low-volume or illiquid instruments where traders may face difficulty exiting positions, wider bid-ask spreads, or price slippage. Look for patterns where traders consistently ignore volume data or trade during low-liquidity periods.
+Prompt: Detect liquidity ignorance where traders fail to consider volume, market depth, and liquidity conditions, leading to poor execution, excessive slippage, and exit difficulties.
+
+SPECIFIC DETECTION CRITERIA:
+• Trading in symbols with daily volume <100K shares without size adjustment
+• Position entries during pre-market or after-hours with minimal volume
+• Large orders relative to average daily volume (>5% of ADV)
+• Trading illiquid options with wide bid-ask spreads (>5% of underlying)
+• Entering positions in thinly traded ETFs or small-cap stocks without liquidity analysis
+• Ignoring volume spikes or drops when timing entries/exits
+
+LOW VOLUME VIOLATIONS:
+• Trading penny stocks or micro-cap securities with sporadic volume
+• Options trading in far out-of-the-money or distant expiration contracts
+• International ADRs or emerging market ETFs during off-hours
+• Sector ETFs or niche products with minimal institutional interest
+• Trading during holidays or market half-days with reduced participation
+
+EXECUTION QUALITY PROBLEMS:
+• Market orders filled at prices significantly different from quoted price
+• Slippage consistently exceeds 0.5% on trades due to liquidity constraints
+• Bid-ask spreads wider than 0.2% for large-cap stocks, 0.5% for mid-cap
+• Fill times extended due to insufficient counterparty liquidity
+• Partial fills requiring multiple transactions increasing costs
+
+VOLUME ANALYSIS NEGLECT:
+• No consideration of volume profile when planning entry/exit timing
+• Trading against volume trend: buying on decreasing volume, selling on increasing
+• Ignoring volume confirmation of price movements
+• Position sizing ignores stock's typical trading range and volume patterns
+• No awareness of volume patterns around earnings or news events
+
+MARKET MICROSTRUCTURE IGNORANCE:
+• No consideration of market maker presence and institutional flow
+• Trading during lunch hours or end-of-day with reduced liquidity
+• Ignoring Level II data showing thin order book depth
+• No awareness of dark pool activity affecting visible liquidity
+• High-frequency trading impact ignored in execution planning
+
+TIMING AND SCHEDULING ERRORS:
+• Trading European stocks during US market hours when EU closed
+• Crypto trading during traditional market hours when volume concentrated in off-hours
+• Bond ETF trading during equity market stress when liquidity disappears
+• Commodity ETF trading without considering underlying futures market hours
+
+COST IMPACT MEASUREMENTS:
+• Transaction costs exceed 1% due to liquidity-related factors
+• Market impact causes permanent price movement against position
+• Opportunity cost from delayed exits due to liquidity constraints
+• Multiple small trades needed instead of single efficient execution
+
+CALCULATE IMPACT: Measure execution costs, slippage analysis, compare liquid vs illiquid instrument performance, analyze exit timing difficulties

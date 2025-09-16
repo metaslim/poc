@@ -71,9 +71,10 @@ python main.py interactive sk-your-api-key-here
 
 # Inside interactive session:
 scenarios                    # List all available scenarios
-analyze 1                    # Load scenario1
-analyze scenario5            # Load scenario5 by name
-analyze FOMO                 # Find scenario by description (scenario3)
+analyze scenario 1           # Load scenario1
+analyze scenario 5           # Load scenario5 by number
+analyze FOMO scenario        # Find scenario by description (scenario3)
+analyze trading data 1       # Alternative way to load scenario1
 Check current market sentiment for AAPL
 What are the biggest risks in tech stocks?
 help
@@ -138,13 +139,19 @@ python scripts/trading_assistant.py query sk-your-api-key-here "Test query"
 
 Inside interactive mode:
 ```
-analyze <scenario>     - Smart scenario analysis
-  • analyze 1          - Load scenario1
-  • analyze scenario5  - Load scenario5 by name
-  • analyze FOMO       - Find scenario by description
-scenarios / list      - List all available scenarios
-help                  - Show available commands
-quit/exit             - End session and save data
+analyze scenario <id>     - Load and analyze trading scenarios
+  • analyze scenario 1    - Load scenario1
+  • analyze scenario 5    - Load scenario5 by number
+  • analyze FOMO scenario - Find scenario by description
+  • analyze trading data 1 - Alternative syntax
+scenarios / list         - List all available scenarios
+help                     - Show available commands
+quit/exit               - End session and save data
+
+Market Analysis Commands:
+  • Check AAPL sentiment    - Analyze stock sentiment
+  • Market conditions today - Overall market analysis
+  • Risk analysis TSLA      - Risk assessment for stocks
 ```
 
 ## 📁 Project Structure
@@ -176,10 +183,31 @@ quit/exit             - End session and save data
 └── 📚 README.md                 # This file
 ```
 
+## 🛡️ AI Guardrails & Safety
+
+**Focused Purpose:** This AI system is designed exclusively for trading psychology analysis and maintains strict guardrails:
+
+### ✅ What the AI WILL do:
+- Analyze trading psychology patterns and anti-patterns
+- Provide quantified trading performance insights
+- Detect behavioral biases in trading data
+- Offer risk management guidance
+- Explain market psychology concepts
+
+### ❌ What the AI will NEVER do:
+- Give specific buy/sell stock recommendations
+- Provide investment advice or financial planning
+- Make market predictions or price forecasts
+- Process personal financial information
+- Respond to non-trading psychology queries
+
+**Safety Response:** If asked anything outside its scope, the AI responds: *"I only analyze trading psychology patterns. Please provide trading data for behavioral analysis."*
+
 ## ⚠️ Important Notes
 
 - **Educational use only** - Not financial advice
-- **Simulated data** - AI agents provide realistic fake responses
+- **Trading psychology focus** - AI stays within strict behavioral analysis boundaries
+- **Simulated data** - AI agents provide realistic fake responses for demonstration
 - **API required** - Needs OpenAI API key for analysis
 - **Privacy** - User profiles stored locally only
 

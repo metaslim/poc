@@ -1,1 +1,0 @@
-Prompt: Detect holding losers too long. This pattern is present when a trader refuses to close losing positions, hoping for a reversal, which can lead to larger losses. Identify trades held for extended periods despite ongoing losses.

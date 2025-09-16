@@ -1,1 +1,18 @@
-Prompt: Detect correlation blindness in portfolio construction. Identify when traders hold multiple highly correlated positions simultaneously, effectively concentrating risk without realizing it. Look for trades in similar sectors, asset classes, or instruments that move together, creating hidden concentration risk.
+Prompt: Detect correlation blindness where traders fail to recognize position concentration risk through highly correlated assets.
+
+SPECIFIC DETECTION CRITERIA:
+• Multiple positions in same sector without acknowledging correlation
+• Holding tech stocks, tech ETFs, and tech options simultaneously
+• Geographic concentration (all US, all emerging markets) without hedging
+• Similar risk factors across positions (interest rate sensitivity, oil exposure)
+• Diversification illusion through different symbols with similar drivers
+• Ignoring sector rotation impact on concentrated positions
+
+QUANTIFIABLE SIGNALS:
+• Portfolio correlation coefficient >0.7 across major positions
+• Sector concentration >40% of portfolio in single industry
+• Beta-adjusted portfolio exposure >150% due to correlated positions
+• Drawdowns affect >80% of positions simultaneously
+• Risk-adjusted returns decline due to false diversification
+
+CALCULATE IMPACT: Measure performance, risk metrics, and behavioral consistency across different periods

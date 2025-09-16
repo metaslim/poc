@@ -1,1 +1,62 @@
-Prompt: Detect impulsive news reaction trading. Identify trades made immediately after news events without proper analysis, often resulting in buying at peaks or selling at troughs. Look for patterns where trade timing coincides with major announcements, earnings releases, or market-moving events without evidence of strategic planning.
+Prompt: Detect impulsive news reaction trading where positions are entered immediately following news releases without analysis, often resulting in poor timing and emotional decision-making.
+
+SPECIFIC DETECTION CRITERIA:
+• Trades executed within 30 minutes of earnings announcements
+• Position entries immediately following Fed announcements or economic data releases
+• Buying/selling within hours of breaking news without technical confirmation
+• Trading during high-impact news events with increased volatility
+• Panic selling during negative headlines or market crash news
+• FOMO buying during positive catalyst announcements
+
+IMMEDIATE REACTION PATTERNS:
+• Market orders placed within minutes of news release
+• Position sizes larger than normal during news-driven volatility
+• Trading opposite to pre-news plan based on headline sentiment
+• Multiple trades in same symbol following single news event
+• Entry timing perfectly correlated with news publication times
+• No waiting period for market reaction to settle before entry
+
+NEWS EVENT CATEGORIES:
+• Earnings beats/misses causing immediate position entries
+• FDA approvals, clinical trial results for biotech stocks
+• Federal Reserve policy announcements and interest rate decisions
+• Geopolitical events: wars, sanctions, trade negotiations
+• Corporate announcements: mergers, acquisitions, management changes
+• Economic data: jobs reports, inflation data, GDP releases
+
+EMOTIONAL RESPONSE INDICATORS:
+• Trading frequency spikes on high news-flow days
+• Position sizes increase during breaking news periods
+• Normal risk management rules abandoned during news events
+• Pre-planned strategies overridden by news sentiment
+• Multiple position changes following single news item
+• Trading outside normal market hours following after-hours news
+
+POOR TIMING EVIDENCE:
+• Entries at intraday highs following positive news
+• Panic selling at intraday lows following negative news
+• Buying into gaps that quickly reverse
+• Selling before news-driven rallies have time to develop
+• Entry timing shows no technical analysis or confirmation waiting
+
+ANALYSIS ABSENCE MARKERS:
+• No consideration of news already priced into current valuation
+• Ignoring broader market context when reacting to individual stock news
+• No differentiation between material and immaterial news impact
+• Trading on rumors or unconfirmed reports
+• No waiting for market digestion period to assess true impact
+
+HEADLINE VS SUBSTANCE GAPS:
+• Trading on sensational headlines without reading full reports
+• Reacting to preliminary data that gets revised later
+• Ignoring context that contradicts headline sentiment
+• No verification of news source credibility or accuracy
+• Trading on social media rumors before official confirmation
+
+VOLATILITY MISMANAGEMENT:
+• No position size adjustment for news-driven volatility increases
+• Stop-losses inadequate for expanded price ranges during news
+• No recognition that news creates temporary liquidity issues
+• Risk management parameters not adjusted for event-driven uncertainty
+
+CALCULATE IMPACT: Compare news-reaction trade performance vs planned entries, measure timing efficiency relative to news publication, analyze drawdown patterns during news events

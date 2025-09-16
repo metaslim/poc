@@ -1,7 +1,7 @@
-date,action,symbol,quantity,price,notes
-2025-09-01,BUY,SPY,100,420.00,Buying dip in downtrend - fighting market
-2025-09-01,SELL,SPY,100,418.00,Quick loss - market keeps falling
-2025-09-01,BUY,QQQ,75,380.00,Tech bounce attempt - against trend
-2025-09-01,SELL,QQQ,75,377.00,Another loss - trend continues down
-2025-09-02,BUY,SQQQ,100,45.00,Finally with trend - inverse ETF
-2025-09-02,SELL,SQQQ,100,47.00,Small profit - then confusion sets in
+date,action,symbol,quantity,price
+2025-09-01,BUY,SPY,100,420.00
+2025-09-01,SELL,SPY,100,418.00
+2025-09-01,BUY,QQQ,75,380.00
+2025-09-01,SELL,QQQ,75,377.00
+2025-09-02,BUY,SQQQ,100,45.00
+2025-09-02,SELL,SQQQ,100,47.00

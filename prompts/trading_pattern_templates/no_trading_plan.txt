@@ -1,1 +1,45 @@
-Prompt: Detect lack of trading plan. This pattern is present when trades are made without a clear strategy or plan. Identify random or inconsistent trading decisions.
+Prompt: Detect absence of systematic trading plan evidenced by inconsistent strategies, random entry/exit criteria, and lack of predefined rules for position management.
+
+SPECIFIC DETECTION CRITERIA:
+• No consistent entry criteria - trades based on "gut feeling" or daily whims
+• Exit strategies change mid-trade without systematic reason
+• Position sizing varies wildly without risk-based rationale
+• Trading timeframes inconsistent (day trading then swing trading same symbol)
+• No predefined stop-loss or profit-taking rules
+• Strategy changes frequently based on recent wins/losses rather than performance data
+
+INCONSISTENT BEHAVIOR PATTERNS:
+• Technical analysis one day, fundamental the next, no systematic approach
+• Trading different asset classes with no expertise or strategy differentiation
+• Risk tolerance changes based on emotions rather than account conditions
+• No consistent market session focus (sometimes pre-market, sometimes close)
+• Entry sizes based on available cash rather than risk management rules
+
+LACK OF SYSTEMATIC APPROACH:
+• No written rules for when to enter, exit, or size positions
+• Decision-making process varies trade to trade
+• No backtesting or strategy validation before implementation
+• Trading journal absent or inconsistent with minimal analysis
+• No performance review process or strategy refinement methodology
+
+REACTIVE VS PROACTIVE INDICATORS:
+• Trades made in response to market moves rather than planned setups
+• No preparation during market closed hours - all decisions made live
+• Strategy pivots immediately after losses without adequate sample size
+• No predetermined risk/reward ratios for trade evaluation
+• Market scanning lacks systematic criteria or screening process
+
+PLANNING DEFICIENCY MARKERS:
+• Notes contain uncertainty: "not sure why I entered", "hope this works"
+• No trade thesis documented before entry
+• Exit timing determined by P&L rather than original plan
+• Position management decisions made under pressure rather than predetermined
+• No contingency plans for different market scenarios
+
+PERFORMANCE IMPACT:
+• Inconsistent performance across similar market conditions
+• Strategy effectiveness impossible to measure due to constant changes
+• No learning from mistakes due to lack of systematic review
+• Emotional decision-making dominates over process-driven approach
+
+CALCULATE IMPACT: Compare performance consistency, drawdown patterns, and decision quality between planned vs unplanned trades

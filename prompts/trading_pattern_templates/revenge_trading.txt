@@ -1,1 +1,81 @@
-Prompt: Detect revenge trading patterns by identifying emotional responses to losses. Look for: 1) Position sizes that double or triple immediately after a losing trade, 2) Trades in new/unfamiliar symbols following losses, 3) Abandonment of stop-loss rules after consecutive losses, 4) Trading outside normal hours or strategy parameters after significant drawdowns, 5) Rapid-fire trades attempting to "get even" quickly, 6) Higher risk tolerance immediately following losses compared to normal behavior patterns.
+Prompt: Detect revenge trading patterns characterized by impulsive, emotion-driven trades immediately following losses, typically involving increased risk-taking and abandonment of systematic approaches in attempts to quickly recover losses.
+
+SPECIFIC DETECTION CRITERIA:
+• Position sizes increase >100% immediately following realized losses
+• New trades initiated within 30 minutes of stop-loss execution
+• Trading in unfamiliar or higher-volatility symbols after losses
+• Risk parameters abandoned: wider stops, larger position sizes, leveraged products
+• Multiple trades in rapid succession following single large loss
+• Trading outside normal market hours or time windows after losses
+
+IMMEDIATE REACTION PATTERNS:
+• Trade frequency spikes dramatically after losing trades (>3x normal rate)
+• Time between loss realization and next trade <30 minutes consistently
+• Market orders placed immediately after stop-outs without analysis
+• Position sizes that violate normal risk management rules
+• Switching from conservative to aggressive instruments (stocks to options)
+• Trading in pre-market or after-hours sessions following daytime losses
+
+ESCALATION BEHAVIORS:
+• Progressive risk increase: 1x to 2x to 3x leverage after consecutive losses
+• Moving from single stocks to sector ETFs or broad market products
+• Options trading with shorter expirations and higher delta exposure
+• Margin utilization increases significantly after loss events
+• Account size percentage per trade doubles/triples from baseline
+• Using credit or borrowing to fund revenge trades
+
+STRATEGY ABANDONMENT INDICATORS:
+• Normal entry criteria ignored in favor of quick profit opportunities
+• Stop-losses widened beyond technical levels or removed entirely
+• Fundamental or technical analysis skipped for rapid entries
+• Predetermined trade plans overridden by loss recovery desires
+• Risk-reward ratios deteriorate significantly (>1:3 risk/reward)
+• Trading against established trends in hope of quick reversals
+
+PSYCHOLOGICAL STRESS MARKERS:
+• Notes contain "need to make it back", "can't end red", "one more trade"
+• Trading continues despite reaching daily loss limits
+• Increased position sizes correlate with emotional state rather than opportunity
+• Multiple account access: switching between accounts after losses
+• Social media or forum posting increases around loss events
+• Sleep patterns disrupted by extended trading hours for recovery attempts
+
+SYMBOL AND INSTRUMENT CHANGES:
+• Sudden trading in volatile stocks not previously in watch list
+• Moving from blue-chip stocks to penny stocks or biotechs
+• Options trading begins or increases dramatically after equity losses
+• Cryptocurrency trading initiated following traditional market losses
+• High-beta or meme stock trading correlated with loss events
+• Sector rotation chasing based on recent gainers lists
+
+TIMING PATTERN ANALYSIS:
+• Trade clustering immediately after 9:30am if overnight losses occurred
+• After-hours trading activity spikes following regular session losses
+• Weekend or holiday trading in available markets after Friday losses
+• Extended trading sessions attempting to recover before market close
+• Pattern of late-day trades trying to recover from morning losses
+
+RECOVERY ATTEMPT CHARACTERISTICS:
+• "Home run" trade attempts with asymmetric risk/reward profiles
+• All-in mentality: using significant percentage of available capital
+• Correlation with high-impact news events for quick profit potential
+• Trading earnings announcements or FDA approvals without research
+• Momentum chasing in trending stocks without technical confirmation
+• Contrarian bets hoping for quick reversals in declining assets
+
+PERFORMANCE DETERIORATION METRICS:
+• Win rate drops below 25% during revenge trading periods
+• Average loss per trade increases while average gain decreases
+• Maximum drawdown events coincide with revenge trading clusters
+• Sharpe ratio becomes negative during emotional trading periods
+• Risk-adjusted returns deteriorate significantly vs baseline periods
+• Account recovery time extends as revenge patterns intensify
+
+BEHAVIORAL SEQUENCE PATTERNS:
+• Loss → Immediate analysis of "what went wrong" → Quick replacement trade
+• Stop-loss hit → Anger/frustration → Larger position in similar setup
+• Red day → Extended trading session → Multiple recovery attempts
+• Streak of losses → Complete strategy abandonment → High-risk speculation
+• Large single loss → Multiple small revenge trades → Compounding losses
+
+CALCULATE IMPACT: Measure performance during revenge trading episodes vs systematic periods, analyze recovery success rates, track emotional trading costs, compare risk-adjusted returns during revenge periods

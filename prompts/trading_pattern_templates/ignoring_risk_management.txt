@@ -1,1 +1,45 @@
-Prompt: Detect ignoring risk management. This pattern is present when a trader risks too much capital on single trades or does not diversify. Identify trades with high risk relative to account size.
+Prompt: Detect systematic violations of risk management principles including excessive position sizing, inadequate diversification, missing stop-losses, and ignoring portfolio heat limits.
+
+SPECIFIC DETECTION CRITERIA:
+• Individual position risk exceeds 5% of total account value
+• No stop-losses set or stop-losses consistently moved against position
+• Total portfolio risk exceeds 25% across all open positions
+• Position sizing doesn't account for volatility differences between assets
+• Correlation risk ignored - multiple correlated positions treated as diversified
+• Leverage used without proportional reduction in position sizes
+
+POSITION SIZE VIOLATIONS:
+• Position sizes based on dollars available rather than risk-adjusted approach
+• No consideration of asset volatility in position sizing calculations
+• Same dollar amount used for low-volatility bonds and high-volatility tech stocks
+• Position size increases after winning streaks without risk reassessment
+• All-in mentality: using majority of account on single trade opportunity
+
+STOP-LOSS DISCIPLINE FAILURES:
+• Stop-losses set but repeatedly moved lower to avoid realization
+• Mental stops used instead of hard stops, leading to emotional overrides
+• Stop-losses placed at arbitrary levels rather than technical/volatility-based levels
+• No stops on "investment" positions that become underwater traders
+• Wide stops that risk more than 2-3% account value per trade
+
+PORTFOLIO HEAT MISMANAGEMENT:
+• Total risk across all positions exceeds prudent limits (>20-25%)
+• No recognition of correlated positions adding cumulative risk
+• Risk concentration in single sector, geography, or asset class
+• No stress testing of portfolio under adverse market scenarios
+• Position additions without considering existing exposure
+
+DIVERSIFICATION FAILURES:
+• False diversification: different symbols with same risk factors
+• Concentration in single time horizon (all day trades or all long-term)
+• Geographic concentration without hedging currency/country risk
+• Single strategy reliance without backup approaches for different markets
+• Ignoring correlation increases during market stress periods
+
+LEVERAGE MISUSE:
+• Using maximum available leverage without risk adjustment
+• Leverage increases position sizes rather than maintaining same risk
+• No consideration of leverage impact during volatile periods
+• Margin calls treated as normal part of trading rather than warning signals
+
+CALCULATE IMPACT: Measure maximum drawdown, risk-adjusted returns, and frequency of large losses vs accounts with proper risk management

@@ -1,1 +1,0 @@
-Prompt: Detect lack of stop-loss usage. This pattern is present when a trader does not use stop-loss orders, exposing themselves to large potential losses. Identify trades without stop-loss protection.

@@ -1,1 +1,23 @@
-Prompt: Detect confirmation bias. Confirmation bias occurs when a trader seeks out information that supports their existing beliefs and ignores contradictory evidence. Look for trades made despite negative signals or warnings.
+Prompt: Detect confirmation bias in trading behavior. Confirmation bias occurs when traders selectively interpret information to support their existing beliefs while dismissing contradictory evidence.
+
+SPECIFIC DETECTION CRITERIA:
+• Trades executed despite multiple technical indicators showing opposite signals
+• Position entries when RSI shows overbought (>70) conditions but trader notes mention "still bullish"
+• Ignoring stop-loss triggers and adding to losing positions with justifications like "temporary dip"
+• Cherry-picking positive news while dismissing negative earnings or guidance
+• Holding losing positions with notes containing phrases like "just a correction" or "market overreaction"
+• Trading against clear trend reversals with explanations that dismiss the reversal
+
+QUANTIFIABLE SIGNALS:
+• Win rate drops below 40% on trades with contradictory signals
+• Average holding time increases 2x+ on losing positions vs winning positions
+• Position size increases on trades against technical signals
+• Notes contain dismissive language about negative indicators (>3 instances)
+
+BEHAVIORAL EVIDENCE:
+• Trader notes show rationalization patterns ("market doesn't understand", "temporary weakness")
+• Selective mention of supporting data while omitting contradictory metrics
+• Continued buying during clear downtrends with fundamentally weak justifications
+• Refusal to exit positions when original thesis is invalidated
+
+CALCULATE IMPACT: Compare performance of trades with vs without contradictory signals

@@ -1,1 +1,0 @@
-Prompt: Detect Martingale strategy usage. The Martingale strategy involves doubling down on losing trades in hopes of recovering losses, which can lead to significant drawdowns. Identify patterns of increasing position size after consecutive losses.

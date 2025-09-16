@@ -292,7 +292,18 @@ class TradingAssistant:
         analysis_query += "- PATTERN PROOF: Show specific behavior that triggers this pattern\n"
         analysis_query += "- CONSEQUENCES: Quantified impact with percentages and amounts\n"
         analysis_query += "- SOLUTION: Concrete actionable steps\n"
-        analysis_query += "- SEVERITY: Critical/Warning/Improvement\n"
+        analysis_query += "- SEVERITY: Critical/Warning/Improvement\n\n"
+
+        analysis_query += "IMPORTANT: End your analysis with a SUMMARY TABLE in this exact format:\n\n"
+        analysis_query += "## SUMMARY TABLE\n\n"
+        analysis_query += "| Pattern | Severity | Impact (%) | $ Opportunity Cost | AI Frequency | Concrete Example (Trade/Note) | Immediate Fix |\n"
+        analysis_query += "|---------|----------|------------|--------------------|--------------|-----------------------------|---------------|\n"
+        analysis_query += "| Pattern Name | Critical/Warning | -X.X% | $X,XXX | High/Medium/Low | ACTUAL TRADE: SPY 2025-01-15 BUY 100@$420 'Note text' | Set stop-loss at X% |\n\n"
+        analysis_query += "REQUIREMENTS for the table:\n"
+        analysis_query += "- Concrete Example MUST include: Symbol, Date, Action, Quantity, Price, and actual trader note in quotes\n"
+        analysis_query += "- Immediate Fix MUST be specific actionable step (not generic advice)\n"
+        analysis_query += "- ALL columns must be filled - no empty cells\n"
+        analysis_query += "- Use actual data from the provided trades\n"
 
         # Smart tool selection based on analysis mode
         if analysis_mode == "quick":
@@ -327,8 +338,21 @@ class TradingAssistant:
 
         # Use OpenAI to synthesize results
         system_prompt = (
-            "You are an elite trading psychology analyst. Analyze the trading data "
-            "using the AI tool results to detect anti-patterns and provide actionable insights. "
+            "You are an elite trading psychology analyst. Your SOLE PURPOSE is analyzing trading behavior patterns and psychology.\n\n"
+            "GUARDRAILS - You ONLY provide:\n"
+            "✅ Trading psychology analysis\n"
+            "✅ Anti-pattern detection in trading behavior\n"
+            "✅ Quantified trading performance insights\n"
+            "✅ Specific trading improvement recommendations\n\n"
+            "❌ NEVER provide:\n"
+            "❌ General life advice\n"
+            "❌ Non-trading financial advice\n"
+            "❌ Investment recommendations (buy/sell specific stocks)\n"
+            "❌ Market predictions or forecasts\n"
+            "❌ Personal information processing\n"
+            "❌ Content outside trading psychology analysis\n\n"
+            "If asked anything outside trading psychology analysis, respond: 'I only analyze trading psychology patterns. Please provide trading data for behavioral analysis.'\n\n"
+            "Analyze the trading data using AI tool results to detect anti-patterns and provide actionable insights. "
             "Focus on specific evidence from the trades and quantified impact."
         )
 
@@ -433,12 +457,104 @@ class TradingAssistant:
 
         return None
 
+    def _detect_analyze_command(self, user_input: str) -> Optional[tuple]:
+        """Smart detection of analyze commands with fuzzy matching for typos."""
+        user_lower = user_input.lower().strip()
+
+        # Define fuzzy patterns for analyze commands
+        analyze_variations = ['analyz', 'analys', 'analy', 'anal', 'analyze', 'analyse', 'analize']
+        scenario_variations = ['scenario', 'scenari', 'scneari', 'sceario', 'senario', 'scenaro']
+        data_variations = ['data', 'dat', 'trading data', 'trade data']
+
+        # Helper function for fuzzy matching
+        def fuzzy_match(word: str, variations: list, max_diff: int = 2) -> str:
+            """Find the best match from variations with Levenshtein-like distance."""
+            word = word.lower()
+
+            # Exact match first
+            if word in variations:
+                return word
+
+            # Check if word starts with any variation
+            for var in variations:
+                if word.startswith(var) or var.startswith(word):
+                    return var
+
+            # Simple character difference check
+            for var in variations:
+                if len(word) == len(var):
+                    diff = sum(c1 != c2 for c1, c2 in zip(word, var))
+                    if diff <= max_diff:
+                        return var
+                elif abs(len(word) - len(var)) <= 1:  # One character missing/added
+                    # Check if it's close enough
+                    shorter, longer = (word, var) if len(word) < len(var) else (var, word)
+                    if shorter in longer or any(longer[i:i+len(shorter)] == shorter for i in range(len(longer) - len(shorter) + 1)):
+                        return var
+
+            return None
+
+        # Split input into words
+        words = user_lower.split()
+        if len(words) < 2:
+            return None
+
+        # Check for analyze command patterns
+        analyze_match = fuzzy_match(words[0], analyze_variations)
+        if not analyze_match:
+            return None
+
+        # Pattern 1: "analyze scenario X" or "analyze scenari X" etc
+        if len(words) >= 3:
+            scenario_match = fuzzy_match(words[1], scenario_variations)
+            if scenario_match:
+                file_spec = ' '.join(words[2:])
+                if words[1] != scenario_match:  # Show correction
+                    print(f"🔄 Corrected: '{words[1]}' → 'scenario'")
+                return (f"{analyze_match} scenario ", file_spec)
+
+            # Pattern 2: "analyze trading data X" or "analyze dat X" etc
+            data_match = None
+            if len(words) >= 4 and words[1] in ['trading', 'trade']:
+                data_match = fuzzy_match(words[2], data_variations)
+                if data_match:
+                    file_spec = ' '.join(words[3:])
+                    return (f"{analyze_match} trading data ", file_spec)
+            elif len(words) >= 3:
+                data_match = fuzzy_match(words[1], data_variations)
+                if data_match:
+                    file_spec = ' '.join(words[2:])
+                    return (f"{analyze_match} data ", file_spec)
+
+        # Pattern 3: "analyze X scenario" (scenario at end)
+        if len(words) >= 3:
+            last_word = words[-1]
+            scenario_match = fuzzy_match(last_word, scenario_variations)
+            if scenario_match:
+                file_spec = ' '.join(words[1:-1])
+                if last_word != scenario_match:  # Show correction
+                    print(f"🔄 Corrected: '{last_word}' → 'scenario'")
+                return (f"{analyze_match} scenario ", file_spec)
+
+        # Pattern 4: Simple "analyze X" (fallback)
+        if len(words) == 2:
+            file_spec = words[1]
+            return (f"{analyze_match} ", file_spec)
+
+        return None
+
     def interactive_session(self):
         """Start interactive learning session."""
         print("🤖 INTERACTIVE TRADING ASSISTANT")
         print("=" * 50)
         print(f"👤 User: {self.user_id}")
-        print(f"📊 Profile: {self.user_profile.get('trading_experience', 'unknown')} trader")
+
+        # Show enhanced profile information
+        experience = self.user_profile.get('trading_experience', 'unknown')
+        risk_tolerance = self.user_profile.get('risk_tolerance', 'medium')
+        session_count = len(self.user_profile.get('session_history', []))
+
+        print(f"📊 Profile: {experience} trader ({risk_tolerance} risk, {session_count} sessions)")
 
         # Show available scenarios
         scenarios = self._discover_scenarios()
@@ -461,9 +577,11 @@ class TradingAssistant:
                     self._show_help()
                     continue
 
-                if user_input.lower().startswith('analyze '):
-                    # Handle smart file analysis
-                    file_spec = user_input[8:].strip()
+                # Smart scenario command detection with fuzzy matching
+                analyze_result = self._detect_analyze_command(user_input)
+
+                if analyze_result:
+                    analyze_command, file_spec = analyze_result
                     resolved_path = self._smart_file_path(file_spec)
 
                     if resolved_path:
@@ -496,7 +614,7 @@ class TradingAssistant:
                         print("❌ No scenarios found in samples/ folder")
                     continue
 
-                # Handle general queries with AI tools
+                # Handle general queries with AI tools (with query enhancement)
                 response = self.query_with_tools(user_input)
                 print(f"\n💡 RESPONSE:\n{response}")
 
@@ -510,9 +628,69 @@ class TradingAssistant:
             except Exception as e:
                 print(f"❌ Error: {e}")
 
+    def _enhance_user_query(self, query: str) -> str:
+        """Use LLM to rephrase and enhance user query for better tool selection."""
+        # Use smart detection to check if this is a scenario command
+        if self._detect_analyze_command(query):
+            print(f"🔍 Detected scenario command, skipping enhancement")
+            return query
+
+        try:
+            enhancement_prompt = f"""
+            Rephrase and enhance this user query to make it more specific and actionable for trading analysis tools.
+
+            Original query: "{query}"
+
+            Please:
+            1. Make the query more specific if it's vague
+            2. Add relevant trading context if missing
+            3. Clarify the intent (analysis, data request, risk assessment, etc.)
+            4. Include relevant symbols if mentioned implicitly
+            5. Keep the core intent but make it clearer
+
+            Examples:
+            - "How's AAPL?" → "Analyze current market conditions and sentiment for AAPL stock"
+            - "Market today?" → "Check current market conditions, news, and overall market sentiment"
+            - "Should I buy Tesla?" → "Provide comprehensive analysis of TSLA including market data, sentiment, and risk assessment"
+
+            IMPORTANT: If the query mentions "scenario", "trading data" or appears to be requesting analysis of scenario files, preserve that intent exactly.
+
+            Return only the enhanced query, nothing else.
+            """
+
+            # Show loading indicator for query enhancement
+            loading = LoadingIndicator("🔄 Enhancing query")
+            loading.start()
+
+            try:
+                openai_config = self._get_openai_config()
+                response = self.client.chat.completions.create(
+                    messages=[
+                        {"role": "system", "content": "You are a query enhancement specialist. Rephrase user queries to be more specific and actionable for trading analysis tools."},
+                        {"role": "user", "content": enhancement_prompt}
+                    ],
+                    **openai_config
+                )
+                enhanced_query = response.choices[0].message.content.strip()
+
+                # Remove quotes if the LLM added them
+                if enhanced_query.startswith('"') and enhanced_query.endswith('"'):
+                    enhanced_query = enhanced_query[1:-1]
+
+                print(f"🔄 Enhanced query: \"{enhanced_query}\"")
+                return enhanced_query
+            finally:
+                loading.stop()
+
+        except Exception as e:
+            print(f"Note: Query enhancement skipped ({str(e)})")
+            return query
+
     def query_with_tools(self, query: str) -> str:
         """Process general query using AI tools."""
-        selected_tools = self.tool_selector.select_tools(query)
+        # Enhance the query for better tool selection
+        enhanced_query = self._enhance_user_query(query)
+        selected_tools = self.tool_selector.select_tools(enhanced_query)
 
         if not selected_tools:
             # Direct OpenAI query without tools
@@ -525,8 +703,22 @@ class TradingAssistant:
                     openai_config = self._get_openai_config()
                     response = self.client.chat.completions.create(
                         messages=[
-                            {"role": "system", "content": "You are a helpful trading assistant."},
-                            {"role": "user", "content": query}
+                            {"role": "system", "content": (
+                                "You are a trading psychology assistant. Your SOLE PURPOSE is trading behavior analysis.\n\n"
+                                "GUARDRAILS - You ONLY provide:\n"
+                                "✅ Trading psychology analysis\n"
+                                "✅ Market behavior insights\n"
+                                "✅ Trading pattern explanations\n"
+                                "✅ Risk management guidance\n\n"
+                                "❌ NEVER provide:\n"
+                                "❌ Specific buy/sell recommendations\n"
+                                "❌ Investment advice\n"
+                                "❌ Market predictions\n"
+                                "❌ Personal financial planning\n"
+                                "❌ Content outside trading psychology\n\n"
+                                "If asked anything outside your scope, respond: 'I only help with trading psychology analysis. What trading behavior would you like me to analyze?'"
+                            )},
+                            {"role": "user", "content": enhanced_query}
                         ],
                         **openai_config
                     )
@@ -538,17 +730,17 @@ class TradingAssistant:
 
         print(f"🧠 Using {len(selected_tools)} AI tools: {', '.join(selected_tools)}")
 
-        # Prepare tool calls
+        # Prepare tool calls using enhanced query for better parameter extraction
         tool_calls = []
         for tool_name in selected_tools:
             if 'sentiment' in tool_name:
-                symbols = self._extract_symbols(query)
+                symbols = self._extract_symbols(enhanced_query)
                 args = {'symbols': symbols, 'sentiment_type': 'comprehensive'}
             elif 'market_data' in tool_name:
-                symbols = self._extract_symbols(query)
+                symbols = self._extract_symbols(enhanced_query)
                 args = {'symbols': symbols, 'data_type': 'overview'}
             elif 'news' in tool_name:
-                args = {'query': query}
+                args = {'query': enhanced_query}
             else:
                 args = {}
 
@@ -557,10 +749,22 @@ class TradingAssistant:
         # Execute tools
         tool_results = self._execute_tools_parallel(tool_calls)
 
-        # Synthesize with OpenAI
+        # Synthesize with OpenAI using both original and enhanced query
         system_prompt = (
-            "You are an expert trading analyst. Use the AI tool results to provide "
-            "comprehensive answers with actionable insights and specific recommendations."
+            "You are an expert trading psychology analyst. Your SOLE PURPOSE is trading behavior analysis.\n\n"
+            "GUARDRAILS - You ONLY provide:\n"
+            "✅ Trading psychology insights\n"
+            "✅ Market behavior analysis\n"
+            "✅ Risk management guidance\n"
+            "✅ Trading pattern explanations\n\n"
+            "❌ NEVER provide:\n"
+            "❌ Specific stock recommendations (buy/sell)\n"
+            "❌ Investment advice\n"
+            "❌ Market price predictions\n"
+            "❌ Personal financial guidance\n"
+            "❌ Non-trading related content\n\n"
+            "If asked anything outside trading psychology, respond: 'I only analyze trading psychology and behavior. Please ask about trading patterns or market psychology.'\n\n"
+            "Use the AI tool results to provide comprehensive trading psychology insights with actionable behavioral recommendations."
         )
 
         tool_context = "AI Tool Results:\n"
@@ -577,7 +781,7 @@ class TradingAssistant:
                 response = self.client.chat.completions.create(
                     messages=[
                         {"role": "system", "content": system_prompt},
-                        {"role": "user", "content": f"Query: {query}\n\n{tool_context}"}
+                        {"role": "user", "content": f"Original Query: {query}\nEnhanced Query: {enhanced_query}\n\n{tool_context}"}
                     ],
                     **openai_config
                 )

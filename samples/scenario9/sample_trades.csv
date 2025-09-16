@@ -1,6 +1,6 @@
-date,action,symbol,quantity,price,notes
-2025-09-01,BUY,AAPL,100,180.00,Entry - no stop loss planned
-2025-09-03,BUY,AAPL,50,175.00,Adding to loser - down 3%
-2025-09-15,SELL,AAPL,200,162.00,10% total loss - should have stopped at 2%
-2025-09-20,BUY,TSLA,75,250.00,New position - still no risk plan
-2025-09-28,SELL,TSLA,100,200.00,20% loss - no discipline learned
+date,action,symbol,quantity,price
+2025-09-01,BUY,AAPL,100,180.00
+2025-09-03,BUY,AAPL,50,175.00
+2025-09-15,SELL,AAPL,200,162.00
+2025-09-20,BUY,TSLA,75,250.00
+2025-09-28,SELL,TSLA,100,200.00

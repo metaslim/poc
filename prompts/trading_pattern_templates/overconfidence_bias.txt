@@ -1,1 +1,47 @@
-Prompt: Detect overconfidence bias. Overconfidence bias occurs when a trader overestimates their knowledge or predictive ability, leading to excessive risk-taking. Look for patterns of large, frequent trades after a series of wins.
+Prompt: Detect overconfidence bias where winning streaks lead to overestimation of skill, resulting in excessive risk-taking, reduced diversification, and eventual significant losses.
+
+SPECIFIC DETECTION CRITERIA:
+• Position sizes increase significantly after winning streaks (3+ consecutive wins)
+• Trading frequency increases following profitable periods
+• Risk management rules relaxed or abandoned after success
+• Entry into unfamiliar markets/instruments due to recent success
+• Reduced research time per trade as confidence increases
+• Stop-losses widened or removed after successful periods
+
+POST-SUCCESS ESCALATION:
+• Position sizing grows from 2% to 5%+ of portfolio after wins
+• Diversification decreases - concentration in "hot hand" areas
+• Leverage usage increases following profitable periods
+• Options trading or higher-risk instruments adopted after success
+• Trading outside core competency areas
+• Reduced position monitoring due to perceived skill
+
+QUANTIFIABLE SIGNALS:
+• Risk per trade increases >50% following winning streaks
+• Portfolio concentration (top 3 positions) exceeds 60% after wins
+• Win rate deteriorates significantly after confidence-driven size increases
+• Maximum drawdown events follow periods of increased position sizing
+• Sharpe ratio decreases as position sizes and frequencies increase
+
+OVERCONFIDENCE INDICATORS:
+• Notes contain phrases like "can't lose", "found the formula", "easy money"
+• Reduced analysis depth coinciding with increased position sizes
+• Dismissal of contradictory signals during confidence periods
+• Prediction certainty increases in notes ("definitely going up")
+• Risk assessment becomes more optimistic without fundamental changes
+
+SKILL VS LUCK MISATTRIBUTION:
+• Attributing wins to skill during bull markets or trending periods
+• Increased conviction in personal abilities after market-driven gains
+• Underestimating role of favorable market conditions in success
+• Extrapolating short-term success to long-term edge
+• Ignoring statistical variance in performance evaluation
+
+BEHAVIORAL MANIFESTATIONS:
+• Reduced consultation with others or second opinions
+• Faster decision-making without proportional increase in accuracy
+• Increased willingness to hold through adverse price action
+• Earlier entries and later exits based on "gut feel"
+• Dismissal of systematic approaches in favor of intuition
+
+CALCULATE IMPACT: Compare performance during confidence periods vs normal periods, measure risk-adjusted returns before and after overconfidence episodes

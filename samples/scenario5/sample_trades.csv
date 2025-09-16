@@ -1,6 +1,6 @@
-date,action,symbol,quantity,price,notes
-2025-09-01,BUY,TSLA,100,250.00,Entry with no risk plan
-2025-09-01,BUY,NVDA,150,450.00,Another position - no stops
-2025-09-05,SELL,TSLA,100,240.00,4% loss - should have been 2%
-2025-09-15,BUY,SPY,500,420.00,New position - still no stops
-2025-09-18,SELL,SPY,500,378.00,10% loss - disaster brewing
+date,action,symbol,quantity,price
+2025-09-01,BUY,TSLA,100,250.00
+2025-09-01,BUY,NVDA,150,450.00
+2025-09-05,SELL,TSLA,100,240.00
+2025-09-15,BUY,SPY,500,420.00
+2025-09-18,SELL,SPY,500,378.00

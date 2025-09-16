@@ -1,1 +1,38 @@
-Prompt: Detect premature profit taking. Premature profit taking occurs when a trader closes winning trades too early out of fear of losing gains. Look for patterns of small profits taken quickly after entry.
+Prompt: Detect premature profit taking where traders exit winning positions too early due to loss aversion and fear of losing unrealized gains, significantly reducing overall profitability despite high win rates.
+
+SPECIFIC DETECTION CRITERIA:
+• Winning trades closed within 1-2 days despite trending conditions
+• Profit targets hit at first resistance rather than waiting for breakouts
+• Selling immediately after small profits (1-3%) without technical justification
+• Closing positions during temporary pullbacks in strong uptrends
+• Taking profits at psychological levels (round numbers) rather than technical levels
+• Exiting winners faster than the average time losers are held
+
+LOSS AVERSION INDICATORS:
+• High win rate (>70%) but low average win compared to average loss
+• Profit/loss ratio consistently below 1:1 despite good entry timing
+• Immediate profit-taking when trades become profitable same day
+• Closing partial positions at first sign of profitability
+• Notes showing fear of "giving back gains" or "locking in profits"
+
+QUANTIFIABLE SIGNALS:
+• Average winning trade held <3 days while losing trades held >7 days
+• Average win amount <50% of average loss amount
+• Maximum favorable excursion significantly exceeds actual realized profit
+• Win rate >60% but overall profitability negative or minimal
+• Profit-taking accelerates during volatile but upward-trending periods
+
+OPPORTUNITY COST ANALYSIS:
+• Comparison of exit price vs subsequent price movement shows missed gains
+• Trend-following opportunities cut short by premature exits
+• Strong momentum moves abandoned for small profits
+• Position closed before reaching logical technical targets
+• Early exits during earnings runups or breakout confirmations
+
+BEHAVIORAL PATTERNS:
+• Bird-in-hand mentality: preferring certain small gains over uncertain larger gains
+• Regret avoidance: exiting to avoid potential future regret of giving back profits
+• Mental accounting: treating unrealized gains as "house money" to be quickly secured
+• Overweighting probability of reversal vs magnitude of continued move
+
+CALCULATE IMPACT: Compare actual realized profits vs potential profits if held to technical targets or trend completion

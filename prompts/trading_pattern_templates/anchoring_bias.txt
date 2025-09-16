@@ -1,1 +1,46 @@
-Prompt: Detect anchoring bias. Anchoring bias happens when a trader relies too heavily on initial information (such as entry price) and fails to adjust to new market data. Identify trades that ignore changing market conditions due to fixation on a reference point.
+Prompt: Detect anchoring bias where traders fixate on reference points (entry prices, historical highs, analyst targets) and fail to adapt to new market information, leading to poor exit timing and risk management.
+
+SPECIFIC DETECTION CRITERIA:
+• Holding losing positions because "it was higher before" - referencing previous highs
+• Setting profit targets based on entry price rather than technical/fundamental levels
+• Refusing to sell winners that exceed initial target because "I bought at X"
+• Stop-losses placed at psychologically important levels (round numbers, entry price) rather than technical levels
+• Position sizing based on how "cheap" stock feels relative to recent highs
+• Ignoring trend changes because price hasn't reached original profit target
+
+COMMON ANCHORING POINTS:
+• Purchase price: "Can't sell for a loss", "Need to get back to break-even"
+• 52-week highs: "It was $100 before, so $80 is cheap"
+• Analyst price targets: Holding until arbitrary target regardless of technicals
+• Round numbers: $50, $100 psychological levels overriding market structure
+• Historical earnings multiples: "P/E was 20 before, so 15 is undervalued"
+• Initial research price: Original thesis target becomes rigid ceiling/floor
+
+BEHAVIORAL EVIDENCE:
+• Notes reference historical prices more than current market conditions
+• Exit decisions justified by entry price rather than current risk/reward
+• Profit-taking postponed because "it should go higher based on where I bought"
+• Position management ignores volatility changes since entry
+• Risk assessment stuck on original thesis despite fundamental changes
+
+QUANTIFIABLE SIGNALS:
+• Stop-losses cluster around entry prices rather than technical levels
+• Profit targets show bias toward entry price + fixed percentage
+• Holding period positively correlates with distance from entry price
+• Win rate decreases when current price significantly differs from anchors
+• Position size inversely correlates with price distance from psychological levels
+
+DECISION-MAKING DISTORTIONS:
+• New information weighted less than initial research/entry rationale
+• Technical analysis overruled by price-relative-to-entry considerations
+• Risk management abandoned when "getting close to break-even"
+• Averaging down justified by "lower than my original entry"
+• Market regime changes ignored if position still shows paper profit
+
+MISSED OPPORTUNITIES:
+• Holding winners past optimal exit because "paid much less"
+• Missing re-entry opportunities after proper exit due to anchored entry price
+• Refusing to cut losses quickly because "price too far from entry"
+• Under-positioning in strong setups because "price too high vs recent lows"
+
+CALCULATE IMPACT: Compare performance when exits based on entry price vs technical levels, measure opportunity cost of anchor-based decisions

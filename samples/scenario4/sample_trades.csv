@@ -1,6 +1,6 @@
-date,action,symbol,quantity,price,notes
-2025-09-01,BUY,AAPL,100,180.00,Good entry on support
-2025-09-01,BUY,TSLA,150,250.00,Adding second position
-2025-09-01,BUY,NVDA,75,450.00,Third position - getting crowded
-2025-09-01,BUY,MSFT,200,300.00,Fourth position - overexposure
-2025-09-01,BUY,GOOGL,50,2800.00,Fifth position - portfolio chaos
+date,action,symbol,quantity,price
+2025-09-01,BUY,AAPL,100,180.00
+2025-09-01,BUY,TSLA,150,250.00
+2025-09-01,BUY,NVDA,75,450.00
+2025-09-01,BUY,MSFT,200,300.00
+2025-09-01,BUY,GOOGL,50,2800.00

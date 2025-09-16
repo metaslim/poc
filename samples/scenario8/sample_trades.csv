@@ -1,7 +1,7 @@
-date,action,symbol,quantity,price,notes
-2025-09-01,BUY,AAPL,50,180.00,Morning gap trade - no plan
-2025-09-01,SELL,AAPL,50,178.50,Quick loss - getting emotional
-2025-09-01,BUY,TSLA,30,250.00,FOMO into momentum
-2025-09-01,SELL,TSLA,30,248.00,Another loss - frustration building
-2025-09-01,BUY,NVDA,20,450.00,Chasing AI hype
-2025-09-01,SELL,NVDA,20,447.00,Third loss - pattern emerging
+date,action,symbol,quantity,price
+2025-09-01,BUY,AAPL,50,180.00
+2025-09-01,SELL,AAPL,50,178.50
+2025-09-01,BUY,TSLA,30,250.00
+2025-09-01,SELL,TSLA,30,248.00
+2025-09-01,BUY,NVDA,20,450.00
+2025-09-01,SELL,NVDA,20,447.00
