@@ -1,17 +1,20 @@
 #!/bin/bash
 
-# Interactive Trading Assistant Runner
+# Interactive Trading Assistant Runner with AI Agent Tools
 # Usage: sh run_interactive_assistant.sh <scenario_folder> <openai_api_key> <user_id>
+
+echo "🤖 ADVANCED TRADING ASSISTANT WITH AI AGENT TOOLS"
+echo "=================================================="
 
 if [ $# -lt 3 ]; then
     echo "Usage: sh run_interactive_assistant.sh <scenario_folder> <openai_api_key> <user_id>"
     echo ""
     echo "Examples:"
-    echo "  sh run_interactive_assistant.sh data/scenario1 sk-your-api-key john_trader"
-    echo "  sh run_interactive_assistant.sh data/scenario7 sk-your-api-key alice_investor"
+    echo "  sh run_interactive_assistant.sh samples/scenario1 sk-your-api-key john_trader"
+    echo "  sh run_interactive_assistant.sh samples/scenario7 sk-your-api-key alice_investor"
     echo ""
     echo "Available scenarios:"
-    ls -d data/scenario* 2>/dev/null | sed 's/^/  /'
+    ls -d samples/scenario* 2>/dev/null | sed 's/^/  /'
     exit 1
 fi
 
@@ -24,7 +27,7 @@ if [ ! -d "$scenario_folder" ]; then
     echo "Error: Scenario folder '$scenario_folder' does not exist."
     echo ""
     echo "Available scenarios:"
-    ls -d data/scenario* 2>/dev/null | sed 's/^/  /'
+    ls -d samples/scenario* 2>/dev/null | sed 's/^/  /'
     exit 1
 fi
 
@@ -34,12 +37,13 @@ if [ ! -f "$scenario_folder/sample_trades.csv" ]; then
     exit 1
 fi
 
-# Run the interactive assistant
-echo "Starting Interactive Trading Assistant..."
-echo "Scenario: $scenario_folder"
-echo "User ID: $user_id"
-echo "=========================================="
+# Run the enhanced interactive assistant
+echo "🚀 Starting Enhanced Interactive Trading Assistant..."
+echo "📊 Scenario: $scenario_folder"
+echo "👤 User ID: $user_id"
+echo "🤖 AI Agent Tools: ENABLED"
+echo "=================================================="
 echo ""
 
-cd scripts
-python interactive_trading_assistant.py "../$scenario_folder" "$openai_api_key" "$user_id"
+# Use the unified main entry point
+python main.py interactive "$scenario_folder" "$openai_api_key" "$user_id"

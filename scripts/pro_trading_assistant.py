@@ -9,11 +9,22 @@ import sys
 from typing import Dict, Optional
 from pathlib import Path
 
+# Add parent directory to path for agent imports
+sys.path.append(str(Path(__file__).parent.parent))
+
 try:
     from openai import OpenAI
 except ImportError:
     print("Error: OpenAI package not installed. Run: pip install openai")
     sys.exit(1)
+
+# Import AI agent tools
+try:
+    from openai_with_agent_tools import OpenAIWithAgentTools
+    AI_TOOLS_AVAILABLE = True
+except ImportError:
+    print("Warning: AI agent tools not available, falling back to basic OpenAI analysis")
+    AI_TOOLS_AVAILABLE = False
 
 
 def load_trading_data(scenario_folder: str) -> str:
@@ -102,7 +113,7 @@ def build_user_prompt(trading_data: str, templates: Dict[str, str]) -> str:
 
 
 def detect_anti_patterns(trading_data: str, templates: Dict[str, str], api_key: str) -> str:
-    """Detect anti-patterns in trading data using OpenAI API.
+    """Detect anti-patterns in trading data using OpenAI API with AI agent tools.
 
     Args:
         trading_data: Raw trading data as a string
@@ -113,24 +124,59 @@ def detect_anti_patterns(trading_data: str, templates: Dict[str, str], api_key: 
         Analysis result from the AI model
     """
     try:
-        client = OpenAI(api_key=api_key)
-        system_prompt = build_system_prompt()
-        user_prompt = build_user_prompt(trading_data, templates)
-
-        response = client.chat.completions.create(
-            model="gpt-4",  # Changed from gpt-5 to gpt-4 (more reliable)
-            messages=[
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": user_prompt}
-            ],
-            max_completion_tokens=1200,  # Increased for more detailed analysis
-            temperature=0.1  # Lower temperature for more consistent analysis
-        )
-
-        return response.choices[0].message.content
+        if AI_TOOLS_AVAILABLE:
+            return detect_anti_patterns_with_tools(trading_data, templates, api_key)
+        else:
+            return detect_anti_patterns_basic(trading_data, templates, api_key)
 
     except Exception as e:
-        return f"Error analyzing trading data: {str(e)}"
+        print(f"⚠️ AI tools failed, falling back to basic analysis: {e}")
+        return detect_anti_patterns_basic(trading_data, templates, api_key)
+
+
+def detect_anti_patterns_with_tools(trading_data: str, templates: Dict[str, str], api_key: str) -> str:
+    """Enhanced analysis using OpenAI with AI agent tools."""
+    openai_with_tools = OpenAIWithAgentTools(api_key)
+
+    # Build comprehensive analysis query
+    analysis_query = "Perform comprehensive trading psychology analysis with the following data:\n\n"
+
+    # Add pattern templates
+    analysis_query += "Anti-pattern criteria to check:\n"
+    for name, rule in sorted(templates.items()):
+        analysis_query += f"• {name}: {rule}\n"
+
+    analysis_query += f"\n--- Trading Data ---\n{trading_data}\n"
+    analysis_query += "\nPlease use your available tools to:\n"
+    analysis_query += "1. Check current market conditions for context\n"
+    analysis_query += "2. Analyze market sentiment that might affect this trading behavior\n"
+    analysis_query += "3. Assess risk factors in the trades\n"
+    analysis_query += "4. Detect specific trading psychology patterns\n"
+    analysis_query += "5. Provide detailed analysis with specific examples from the data\n"
+    analysis_query += "6. Rate the severity of each detected anti-pattern\n"
+    analysis_query += "7. Provide concrete actionable recommendations\n"
+
+    print("🤖 Enhanced analysis using AI agent tools...")
+    return openai_with_tools.analyze_with_tools(analysis_query, trading_data)
+
+
+def detect_anti_patterns_basic(trading_data: str, templates: Dict[str, str], api_key: str) -> str:
+    """Basic analysis using standard OpenAI API."""
+    client = OpenAI(api_key=api_key)
+    system_prompt = build_system_prompt()
+    user_prompt = build_user_prompt(trading_data, templates)
+
+    response = client.chat.completions.create(
+        model="gpt-5",
+        messages=[
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt}
+        ],
+        max_completion_tokens=1200,
+        temperature=0.1
+    )
+
+    return response.choices[0].message.content
 
 
 def validate_inputs(scenario_folder: str, api_key: str) -> Optional[str]:

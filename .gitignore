@@ -65,10 +65,13 @@ user_profiles/*/past_sessions/
 # Logs
 *.log
 logs/
+session_log_*.json
 
 # Temporary files
 *.tmp
 *.temp
+*.bak
+*.old
 
 # Claude
 .claude

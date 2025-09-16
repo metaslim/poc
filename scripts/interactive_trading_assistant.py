@@ -4,12 +4,26 @@ This module provides an interactive trading assistant that can ask follow-up que
 learn from user responses, and store user behavior for future analysis.
 """
 
-import os
 import sys
 import json
 from datetime import datetime
-from typing import Dict, List, Optional, Any
+from typing import Dict, List, Any
 from pathlib import Path
+
+# Add parent directory to path for agent imports
+sys.path.append(str(Path(__file__).parent.parent))
+
+from agents import AgentManager
+
+# Import the OpenAI with tools module
+try:
+    from openai_with_agent_tools import OpenAIWithAgentTools
+except ImportError:
+    # If not found, try to import from current directory
+    import sys
+    from pathlib import Path
+    sys.path.append(str(Path(__file__).parent))
+    from openai_with_agent_tools import OpenAIWithAgentTools
 
 try:
     from openai import OpenAI
@@ -24,8 +38,7 @@ from pro_trading_assistant import (
 )
 from pattern_extractor import (
     extract_detected_patterns,
-    extract_follow_up_questions,
-    extract_severity_levels
+    extract_follow_up_questions
 )
 
 
@@ -91,14 +104,17 @@ class InteractiveTradingAssistant:
 
     def __init__(self, api_key: str):
         self.client = OpenAI(api_key=api_key)
+        self.openai_with_tools = OpenAIWithAgentTools(api_key)
         self.user_profile = None
+        self.agent_manager = AgentManager()
         self.current_session = {
             "analysis_results": [],
             "follow_up_questions": [],
             "user_responses": [],
             "detected_patterns": [],
             "recommendations_given": [],
-            "user_feedback": []
+            "user_feedback": [],
+            "agent_insights": []
         }
 
     def set_user(self, user_id: str):
@@ -126,6 +142,19 @@ class InteractiveTradingAssistant:
 
             base_prompt += "\n"
 
+        # Add AI agent tools information
+        base_prompt += (
+            "AI AGENT TOOLS AVAILABLE:\n"
+            "You have access to specialized AI agents that provide market insights:\n"
+            "• News Agent: Latest market news and impact analysis\n"
+            "• Market Data Agent: Real-time prices, technical indicators, volatility\n"
+            "• Sentiment Agent: Social media, options flow, institutional sentiment\n"
+            "• Risk Management Agent: Portfolio risk, VaR, position sizing\n"
+            "• Pattern Analysis Agent: Trading psychology pattern detection\n\n"
+            "These agents provide additional context and data to supplement your analysis.\n"
+            "The system automatically calls relevant agents during analysis.\n\n"
+        )
+
         base_prompt += (
             "ANALYSIS FRAMEWORK:\n"
             "For each anti-pattern you detect, provide:\n"
@@ -139,13 +168,48 @@ class InteractiveTradingAssistant:
             "2. Identify root causes of the anti-patterns\n"
             "3. Gauge their commitment to implementing solutions\n\n"
             "Format follow-up questions with 'FOLLOW-UP QUESTIONS:' header.\n"
-            "Be direct, insightful, and focus on behavioral psychology."
+            "Be direct, insightful, and focus on behavioral psychology.\n\n"
+            "INTEGRATION WITH AI AGENTS:\n"
+            "Consider insights from the AI agent tools when making your analysis.\n"
+            "Reference agent findings when relevant to support your conclusions.\n"
+            "Use agent data to provide more comprehensive and accurate assessments."
         )
 
         return base_prompt
 
     def analyze_with_context(self, trading_data: str, templates: Dict[str, str]) -> str:
-        """Analyze trading data with user context and generate follow-up questions."""
+        """Analyze trading data with user context and generate follow-up questions using AI tools."""
+
+        # Build comprehensive query for AI tools analysis
+        analysis_query = "Analyze the following trading data for psychological anti-patterns and provide comprehensive insights:\n\n"
+
+        # Add pattern templates for context
+        analysis_query += "Use these anti-pattern criteria:\n"
+        for name, rule in sorted(list(templates.items())[:10]):  # Limit to avoid too long prompt
+            analysis_query += f"• {name}: {rule}\n"
+
+        analysis_query += f"\n--- Trading Data ---\n{trading_data}\n"
+        analysis_query += "\nPlease:\n"
+        analysis_query += "1. Check current market conditions for context\n"
+        analysis_query += "2. Analyze market sentiment that might affect trading psychology\n"
+        analysis_query += "3. Assess risk factors in the trading behavior\n"
+        analysis_query += "4. Detect specific trading patterns and anti-patterns\n"
+        analysis_query += "5. Provide specific examples and actionable recommendations\n"
+        analysis_query += "6. End with 2-3 insightful follow-up questions about trading psychology\n"
+
+        try:
+            # Use OpenAI with AI tools for enhanced analysis
+            result = self.openai_with_tools.analyze_with_tools(analysis_query, trading_data)
+            self.current_session["analysis_results"].append(result)
+            return result
+
+        except Exception as e:
+            # Fallback to regular OpenAI analysis if tools fail
+            print(f"⚠️ AI tools failed, using fallback analysis: {e}")
+            return self._fallback_analysis(trading_data, templates)
+
+    def _fallback_analysis(self, trading_data: str, templates: Dict[str, str]) -> str:
+        """Fallback analysis using regular OpenAI without tools."""
         system_prompt = self.build_enhanced_system_prompt()
 
         user_prompt = "Analyze the following trading data for anti-patterns using these criteria:\n\n"
@@ -157,7 +221,7 @@ class InteractiveTradingAssistant:
 
         try:
             response = self.client.chat.completions.create(
-                model="gpt-4",
+                model="gpt-5",
                 messages=[
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": user_prompt}
@@ -166,12 +230,10 @@ class InteractiveTradingAssistant:
                 temperature=0.2
             )
 
-            result = response.choices[0].message.content
-            self.current_session["analysis_results"].append(result)
-            return result
+            return response.choices[0].message.content
 
         except Exception as e:
-            return f"Error analyzing trading data: {str(e)}"
+            return f"Error in fallback analysis: {str(e)}"
 
     def ask_follow_up_questions(self) -> List[str]:
         """Extract and return follow-up questions from the analysis."""
@@ -248,7 +310,7 @@ class InteractiveTradingAssistant:
 
         try:
             response = self.client.chat.completions.create(
-                model="gpt-4",
+                model="gpt-5",
                 messages=[
                     {"role": "system", "content": "You are a personalized trading coach."},
                     {"role": "user", "content": advice_prompt}
@@ -279,8 +341,154 @@ class InteractiveTradingAssistant:
             "user_responses": [],
             "detected_patterns": [],
             "recommendations_given": [],
-            "user_feedback": []
+            "user_feedback": [],
+            "agent_insights": []
         }
+
+    def get_ai_agent_insights(self, symbols: List[str] = None) -> Dict[str, Any]:
+        """Get insights from AI agents about current market conditions."""
+        if not symbols:
+            symbols = ["SPY", "QQQ", "AAPL"]  # Default symbols
+
+        print("\n🤖 Consulting AI agents for market insights...")
+
+        # Get market overview
+        market_overview = self.agent_manager.market_overview()
+
+        # Get comprehensive analysis for specific symbols
+        if symbols:
+            symbol_analysis = self.agent_manager.comprehensive_analysis(symbols)
+        else:
+            symbol_analysis = None
+
+        agent_insights = {
+            "market_overview": market_overview,
+            "symbol_analysis": symbol_analysis,
+            "timestamp": datetime.now().isoformat()
+        }
+
+        self.current_session["agent_insights"].append(agent_insights)
+        return agent_insights
+
+    def query_specific_agent(self, agent_type: str, request: str, context: Dict[str, Any] = None) -> Dict[str, Any]:
+        """Query a specific AI agent."""
+        print(f"\n🤖 Querying {agent_type} agent...")
+
+        result = self.agent_manager.query_agent(agent_type, request, context)
+
+        if "error" not in result:
+            self.current_session["agent_insights"].append({
+                "agent_type": agent_type,
+                "request": request,
+                "result": result,
+                "timestamp": datetime.now().isoformat()
+            })
+
+        return result
+
+    def get_pattern_analysis(self, trading_data: str) -> Dict[str, Any]:
+        """Get psychological pattern analysis from the pattern analysis agent."""
+        print("\n🧠 Analyzing trading patterns for psychological insights...")
+
+        context = {
+            "trading_data": trading_data,
+            "user_profile": self.user_profile.profile_data if self.user_profile else None
+        }
+
+        result = self.agent_manager.query_agent(
+            "pattern_analysis",
+            "Perform comprehensive psychological pattern analysis",
+            context
+        )
+
+        if "error" not in result:
+            self.current_session["agent_insights"].append({
+                "agent_type": "pattern_analysis",
+                "analysis_type": "comprehensive",
+                "result": result,
+                "timestamp": datetime.now().isoformat()
+            })
+
+        return result
+
+    def get_news_and_sentiment_check(self) -> Dict[str, Any]:
+        """Get current news and sentiment analysis."""
+        print("\n📰 Checking latest market news and sentiment...")
+
+        # Query news agent
+        news_result = self.agent_manager.query_agent("news", "Get latest market-moving news")
+
+        # Query sentiment agent
+        sentiment_result = self.agent_manager.query_agent("sentiment", "Analyze current market sentiment")
+
+        combined_result = {
+            "news_analysis": news_result,
+            "sentiment_analysis": sentiment_result,
+            "timestamp": datetime.now().isoformat()
+        }
+
+        self.current_session["agent_insights"].append(combined_result)
+        return combined_result
+
+    def get_risk_assessment(self, portfolio_data: Dict[str, Any] = None) -> Dict[str, Any]:
+        """Get risk management assessment."""
+        print("\n⚠️ Performing risk assessment...")
+
+        context = {"portfolio": portfolio_data} if portfolio_data else None
+
+        result = self.agent_manager.query_agent(
+            "risk_management",
+            "Provide comprehensive risk assessment and recommendations",
+            context
+        )
+
+        if "error" not in result:
+            self.current_session["agent_insights"].append({
+                "agent_type": "risk_management",
+                "result": result,
+                "timestamp": datetime.now().isoformat()
+            })
+
+        return result
+
+    def show_agent_summary(self):
+        """Display summary of AI agent insights."""
+        if not self.current_session["agent_insights"]:
+            print("\n📊 No AI agent insights available yet.")
+            return
+
+        print("\n" + "="*60)
+        print("🤖 AI AGENT INSIGHTS SUMMARY")
+        print("="*60)
+
+        for insight in self.current_session["agent_insights"]:
+            agent_type = insight.get("agent_type", "multiple")
+
+            print(f"\n🔍 {agent_type.upper().replace('_', ' ')} AGENT:")
+
+            if agent_type == "pattern_analysis" and "result" in insight:
+                result = insight["result"]
+                if "detected_patterns" in result:
+                    patterns = result["detected_patterns"]
+                    print(f"  • Patterns detected: {len(patterns)}")
+                    for pattern in patterns[:3]:  # Show top 3
+                        print(f"    - {pattern['pattern_name'].replace('_', ' ').title()}: {pattern['severity']}")
+
+            elif agent_type in ["news", "sentiment", "risk_management", "market_data"]:
+                result = insight.get("result", {})
+                if "recommendations" in result:
+                    print(f"  • Top recommendations:")
+                    for rec in result["recommendations"][:2]:
+                        print(f"    - {rec}")
+
+            elif "market_overview" in insight:
+                overview = insight["market_overview"]
+                if "market_snapshot" in overview:
+                    snapshot = overview["market_snapshot"]
+                    print(f"  • Market trend: {snapshot.get('trend', 'unknown')}")
+                    print(f"  • Volatility: {snapshot.get('volatility', 'normal')}")
+
+        print("\n" + "="*60)
 
 
 def interactive_session(scenario_folder: str, api_key: str, user_id: str):
@@ -313,6 +521,21 @@ def interactive_session(scenario_folder: str, api_key: str, user_id: str):
     # Initial analysis
     result = assistant.analyze_with_context(trading_data, templates)
     print(result)
+
+    print("\n" + "=" * 60)
+
+    # Get AI agent insights
+    print("\n🤖 Getting AI agent insights...")
+    assistant.get_ai_agent_insights()
+
+    # Get pattern analysis using the new agent
+    assistant.get_pattern_analysis(trading_data)
+
+    # Get news and sentiment check
+    assistant.get_news_and_sentiment_check()
+
+    # Display AI agent summary
+    assistant.show_agent_summary()
 
     print("\n" + "=" * 60)
 
