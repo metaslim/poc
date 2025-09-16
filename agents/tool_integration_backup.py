@@ -75,34 +75,28 @@ class AgentToolRegistry:
                 "agent_type": "pattern_analysis"
             },
             "get_comprehensive_analysis": {
-                "description": "Run comprehensive multi-agent analysis combining news, sentiment, technical data, and risk assessment. Use when user wants 'complete analysis', 'full picture', 'comprehensive view', or analysis from multiple perspectives on stocks/symbols.",
+                "description": "Run comprehensive analysis using multiple agents in parallel",
                 "parameters": {
-                    "symbols": {"type": "array", "description": "Stock symbols to analyze (e.g., ['AAPL', 'SPY', 'TSLA'])"},
-                    "include_agents": {"type": "array", "description": "Specific agents to include: ['news', 'sentiment', 'market_data', 'risk_management', 'pattern_analysis']. Defaults to ['news', 'market_data', 'sentiment', 'risk_management']"}
+                    "symbols": {"type": "array", "description": "Symbols to analyze comprehensively"},
+                    "include_agents": {"type": "array", "description": "Agents to include: ['news', 'sentiment', 'market_data', 'risk']"}
                 },
                 "function": self.comprehensive_analyzer.run_comprehensive_analysis,
-                "agent_type": "comprehensive",
-                "use_when": ["comprehensive analysis", "complete analysis", "full analysis", "full picture", "analyze everything"],
-                "examples": ["Give me comprehensive analysis on AAPL", "Full analysis of tech stocks", "I need the complete picture on SPY", "Comprehensive view of TSLA"]
+                "agent_type": "comprehensive"
             },
             "check_market_conditions": {
-                "description": "Assess overall market conditions, volatility, trends, and trading environment. Use when user asks 'how's the market?', 'market conditions', 'is it a good time to trade?', or needs general market health assessment before trading decisions.",
+                "description": "Get overall market conditions and trading environment assessment",
                 "parameters": {},
                 "function": self.market_conditions.assess_market_conditions,
-                "agent_type": "market_conditions",
-                "use_when": ["market conditions", "market environment", "trading conditions", "market health", "volatility", "market trends"],
-                "examples": ["How are market conditions?", "Is it a good time to trade?", "What's the market like today?", "Check market volatility"]
+                "agent_type": "market_conditions"
             },
             "load_scenario": {
-                "description": "Load and analyze trading scenario data from samples folder. Use when user asks to load/analyze specific scenarios, mentions 'scenario1', 'samples', 'trading data', or wants to examine historical trading patterns. Accepts scenario numbers (1-11), names (scenario1), or paths.",
+                "description": "Load trading scenario data from samples folder for analysis",
                 "parameters": {
-                    "scenario": {"type": "string", "description": "Scenario identifier: '1', '2', 'scenario1', 'scenario5', or full path. Smart matching finds scenarios by number or name."},
-                    "format": {"type": "string", "description": "Return format: 'csv' (raw data) or 'analyzed' (includes trade counts, symbols, buy/sell ratios)"}
+                    "scenario": {"type": "string", "description": "Scenario identifier (e.g., 'scenario1', '1', or path)"},
+                    "format": {"type": "string", "description": "Return format: 'csv' or 'analyzed' (default: 'csv')"}
                 },
                 "function": self.scenario_loader.load_scenario,
-                "agent_type": "scenario_loader",
-                "use_when": ["load scenario", "analyze scenario", "scenario data", "samples folder", "trading patterns", "historical data"],
-                "examples": ["Load scenario 1", "Analyze scenario5", "What's in scenario3?", "Load FOMO trading data"]
+                "agent_type": "scenario_loader"
             }
         }
 
@@ -215,6 +209,174 @@ class AgentToolRegistry:
         context = {"trading_data": trading_data} if trading_data else None
         return self.agent_manager.query_agent("pattern_analysis", request, context)
 
+
+    def generate_tool_prompt(self) -> str:
+
+            if not scenario_path or not os.path.exists(scenario_path):
+                return {
+                    "error": f"Scenario not found: {scenario}",
+                    "available_scenarios": self._list_available_scenarios()
+                }
+
+            # Load scenario data
+            with open(scenario_path, 'r') as f:
+                scenario_data = f.read().strip()
+
+            # Get scenario metadata
+            scenario_name = Path(scenario_path).parent.name
+            metadata = self._get_scenario_metadata(scenario_name)
+
+            result = {
+                "scenario_name": scenario_name,
+                "scenario_path": scenario_path,
+                "data": scenario_data,
+                "metadata": metadata,
+                "format": format
+            }
+
+            # If analyzed format requested, add basic analysis
+            if format == "analyzed":
+                result["analysis"] = self._analyze_scenario_data(scenario_data, scenario_name)
+
+            return result
+
+        except Exception as e:
+            return {
+                "error": f"Error loading scenario: {str(e)}",
+                "scenario": scenario
+            }
+
+    def _resolve_scenario_path(self, scenario: str) -> Optional[str]:
+        """Resolve scenario identifier to file path."""
+        samples_dir = Path(__file__).parent.parent / "samples"
+
+        if not samples_dir.exists():
+            return None
+
+        # Direct path provided
+        if os.path.exists(scenario):
+            return scenario
+
+        # Check if it's a full path relative to project
+        full_path = Path(__file__).parent.parent / scenario
+        if full_path.exists():
+            return str(full_path)
+
+        # Scenario name (e.g., "scenario1")
+        if scenario.startswith("scenario"):
+            scenario_dir = samples_dir / scenario
+            if scenario_dir.exists():
+                csv_file = scenario_dir / "sample_trades.csv"
+                if csv_file.exists():
+                    return str(csv_file)
+
+        # Scenario number (e.g., "1" -> "scenario1")
+        try:
+            scenario_num = int(scenario)
+            scenario_name = f"scenario{scenario_num}"
+            scenario_dir = samples_dir / scenario_name
+            if scenario_dir.exists():
+                csv_file = scenario_dir / "sample_trades.csv"
+                if csv_file.exists():
+                    return str(csv_file)
+        except ValueError:
+            pass
+
+        # Partial name match
+        for scenario_dir in samples_dir.iterdir():
+            if scenario_dir.is_dir() and scenario.lower() in scenario_dir.name.lower():
+                csv_file = scenario_dir / "sample_trades.csv"
+                if csv_file.exists():
+                    return str(csv_file)
+
+        return None
+
+    def _list_available_scenarios(self) -> List[Dict[str, str]]:
+        """List all available scenarios."""
+        scenarios = []
+        samples_dir = Path(__file__).parent.parent / "samples"
+
+        if not samples_dir.exists():
+            return scenarios
+
+        for scenario_dir in sorted(samples_dir.iterdir()):
+            if scenario_dir.is_dir():
+                csv_file = scenario_dir / "sample_trades.csv"
+                if csv_file.exists():
+                    scenarios.append({
+                        "name": scenario_dir.name,
+                        "path": str(csv_file),
+                        "description": self._get_scenario_description(scenario_dir.name)
+                    })
+
+        return scenarios
+
+    def _get_scenario_metadata(self, scenario_name: str) -> Dict[str, str]:
+        """Get metadata for a scenario."""
+        descriptions = {
+            'scenario1': 'Premature profit-taking patterns',
+            'scenario2': 'Averaging down addiction',
+            'scenario3': 'FOMO and momentum chasing',
+            'scenario4': 'Overtrading and impatience',
+            'scenario5': 'Revenge trading behavior',
+            'scenario6': 'Risk management failures',
+            'scenario7': 'Emotional decision making',
+            'scenario8': 'Market timing issues',
+            'scenario9': 'Position sizing errors',
+            'scenario10': 'Confirmation bias patterns',
+            'scenario11': 'Correlation blindness'
+        }
+
+        return {
+            "description": descriptions.get(scenario_name, "Trading psychology analysis"),
+            "category": "trading_patterns",
+            "analysis_focus": "behavioral_psychology"
+        }
+
+    def _get_scenario_description(self, scenario_name: str) -> str:
+        """Get description for a scenario."""
+        return self._get_scenario_metadata(scenario_name)["description"]
+
+    def _analyze_scenario_data(self, scenario_data: str, scenario_name: str) -> Dict[str, Any]:
+        """Provide basic analysis of scenario data."""
+        lines = scenario_data.strip().split('\n')
+
+        if len(lines) <= 1:
+            return {"error": "Insufficient data for analysis"}
+
+        # Count trades and extract basic stats
+        trades = []
+        symbols = set()
+        actions = {"BUY": 0, "SELL": 0}
+
+        for line in lines[1:]:  # Skip header
+            parts = line.split(',')
+            if len(parts) >= 6:
+                action = parts[1].strip()
+                symbol = parts[2].strip()
+                quantity = parts[3].strip()
+                price = parts[4].strip()
+
+                trades.append({
+                    "action": action,
+                    "symbol": symbol,
+                    "quantity": int(quantity) if quantity.isdigit() else 0,
+                    "price": float(price) if price.replace('.', '').isdigit() else 0.0
+                })
+
+                symbols.add(symbol)
+                actions[action] = actions.get(action, 0) + 1
+
+        return {
+            "total_trades": len(trades),
+            "unique_symbols": len(symbols),
+            "symbols": list(symbols),
+            "buy_trades": actions.get("BUY", 0),
+            "sell_trades": actions.get("SELL", 0),
+            "scenario_focus": self._get_scenario_metadata(scenario_name)["description"],
+            "ready_for_pattern_analysis": len(trades) > 0
+        }
+
     def generate_tool_prompt(self) -> str:
         """Generate a prompt describing available tools for the main agent."""
         prompt = "You have access to the following AI agent tools to help with trading analysis:\n\n"
@@ -271,6 +433,7 @@ class SmartTradingAgent:
         if any(word in request_lower for word in ["market condition", "overview", "environment"]):
             tools_needed.append("check_market_conditions")
 
+
         # If no specific tools identified, default to market conditions
         if not tools_needed:
             tools_needed.append("check_market_conditions")
@@ -313,6 +476,7 @@ class SmartTradingAgent:
             elif tool_name == "check_market_conditions":
                 results[tool_name] = self.tool_registry.call_tool(tool_name)
 
+
         return {
             "user_request": user_request,
             "symbols_analyzed": symbols,
@@ -338,6 +502,34 @@ class SmartTradingAgent:
             return ["SPY", "QQQ", "AAPL"]  # Default symbols
 
         return found_symbols[:5]  # Limit to 5 symbols
+
+    def _extract_scenario_from_request(self, request: str) -> str:
+        """Extract scenario identifier from user request."""
+        request_lower = request.lower()
+
+        # Look for scenario patterns
+        import re
+        scenario_patterns = [
+            r'scenario\s*(\d+)',
+            r'scenario(\d+)',
+            r'sample\s*(\d+)',
+            r'load\s+(\d+)',
+            r'analyze\s+(\d+)'
+        ]
+
+        for pattern in scenario_patterns:
+            match = re.search(pattern, request_lower)
+            if match:
+                return match.group(1)
+
+        # Look for explicit scenario names
+        for i in range(1, 12):
+            scenario_name = f"scenario{i}"
+            if scenario_name in request_lower:
+                return str(i)
+
+        # Default to scenario 1 if nothing found
+        return "1"
 
     def _generate_analysis_summary(self, results: Dict[str, Any]) -> Dict[str, Any]:
         """Generate summary of analysis results."""

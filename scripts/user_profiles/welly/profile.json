@@ -1,0 +1,23 @@
+{
+  "user_id": "welly",
+  "created_date": "2025-09-16T15:30:23.432488",
+  "trading_experience": "unknown",
+  "risk_tolerance": "medium",
+  "learning_preferences": {},
+  "detected_patterns": {},
+  "improvement_areas": [],
+  "session_history": [
+    {
+      "date": "2025-09-16T15:50:25.725239",
+      "duration_minutes": 20.038210616666667,
+      "interactions": 0,
+      "analyses": 0
+    },
+    {
+      "date": "2025-09-16T15:55:00.590935",
+      "duration_minutes": 4.364461433333333,
+      "interactions": 0,
+      "analyses": 1
+    }
+  ]
+}

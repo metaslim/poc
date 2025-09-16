@@ -1,0 +1,23 @@
+{
+  "user_id": "default_user",
+  "created_date": "2025-09-16T15:23:49.708276",
+  "trading_experience": "unknown",
+  "risk_tolerance": "medium",
+  "learning_preferences": {},
+  "detected_patterns": {},
+  "improvement_areas": [],
+  "session_history": [
+    {
+      "date": "2025-09-16T16:03:59.254065",
+      "duration_minutes": 2.1515277333333334,
+      "interactions": 1,
+      "analyses": 2
+    },
+    {
+      "date": "2025-09-16T16:04:06.849774",
+      "duration_minutes": 0.09666860000000001,
+      "interactions": 0,
+      "analyses": 0
+    }
+  ]
+}

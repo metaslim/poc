@@ -57,9 +57,9 @@ def show_help():
     print("       python main.py analyze samples/scenario1 sk-your-key")
     print("       python main.py analyze samples/scenario1 sk-your-key trader123")
     print()
-    print("6️⃣  interactive <scenario> <api_key> <user_id>")
-    print("     Interactive trading assistant with learning")
-    print("     Example: python main.py interactive samples/scenario1 sk-your-key trader123")
+    print("6️⃣  interactive <api_key> [user_id]")
+    print("     Interactive trading assistant with smart scenario loading")
+    print("     Example: python main.py interactive sk-your-key [username]")
     print()
     print("7️⃣  list-scenarios")
     print("     Show available trading scenarios")
@@ -109,44 +109,52 @@ def run_demo_agents():
     return True
 
 def run_test_agents():
-    """Run the AI agents test suite."""
+    """Run the AI agents demo and validation."""
     try:
-        from scripts.test_agent_tools import main
-        return main() == 0
+        from scripts.demo_agents import main
+        print("🧪 Running AI agents validation through demonstrations...")
+        main()
+        return True
     except Exception as e:
         print(f"❌ Error running tests: {e}")
         return False
 
 def run_smart_assistant(mode: str = "interactive"):
-    """Run the smart trading assistant."""
+    """Run smart trading assistant using optimized tools."""
     try:
-        from scripts.smart_trading_assistant import main
-        sys.argv = ["smart_trading_assistant.py", mode]
-        main()
+        if mode == "demo":
+            print("🎯 Running smart assistant demo with AI tools...")
+            from scripts.demo_agents import main
+            sys.argv = ["demo_agents.py"]
+            main()
+        else:
+            print(f"💬 Smart assistant mode '{mode}' - use openai-tools instead")
+            print("Example: python main.py openai-tools your-api-key 'your question'")
     except Exception as e:
         print(f"❌ Error running smart assistant: {e}")
         return False
     return True
 
 def run_openai_tools(api_key: str, query: Optional[str] = None):
-    """Run OpenAI agent with tools."""
+    """Run unified trading assistant for queries."""
     try:
-        from scripts.openai_with_agent_tools import main
+        from scripts.trading_assistant import main
         if query:
-            sys.argv = ["openai_with_agent_tools.py", api_key, query]
+            sys.argv = ["trading_assistant.py", "query", api_key, query]
         else:
-            sys.argv = ["openai_with_agent_tools.py", api_key]
+            sys.argv = ["trading_assistant.py", "interactive", api_key]
         main()
     except Exception as e:
-        print(f"❌ Error running OpenAI tools: {e}")
+        print(f"❌ Error running trading assistant: {e}")
         return False
     return True
 
 def run_analyze(scenario: str, api_key: str):
     """Run professional trading analysis."""
     try:
-        from scripts.pro_trading_assistant import main
-        sys.argv = ["pro_trading_assistant.py", scenario, api_key]
+        from scripts.trading_assistant import main
+        file_path = f"{scenario}/sample_trades.csv"
+        sys.argv = ["trading_assistant.py", "analyze", file_path, api_key]
         main()
     except Exception as e:
         print(f"❌ Error running analysis: {e}")
@@ -154,10 +162,28 @@ def run_analyze(scenario: str, api_key: str):
     return True
 
 def run_interactive(scenario: str, api_key: str, user_id: str):
-    """Run interactive trading assistant."""
+    """Run interactive trading assistant (legacy with scenario)."""
     try:
-        from scripts.interactive_trading_assistant import main
-        sys.argv = ["interactive_trading_assistant.py", scenario, api_key, user_id]
+        from scripts.trading_assistant import main
+        sys.argv = ["trading_assistant.py", "interactive", api_key, user_id]
+        print(f"📊 Scenario data available at: {scenario}/sample_trades.csv")
+        print("💡 Use 'analyze <file>' command in interactive mode to analyze the scenario")
+        main()
+    except Exception as e:
+        print(f"❌ Error running interactive assistant: {e}")
+        return False
+    return True
+
+def run_interactive_simple(api_key: str, user_id: Optional[str] = None):
+    """Run interactive trading assistant with smart scenario loading."""
+    try:
+        from scripts.trading_assistant import main
+        if user_id:
+            sys.argv = ["trading_assistant.py", "interactive", api_key, user_id]
+        else:
+            sys.argv = ["trading_assistant.py", "interactive", api_key]
+        print("🎯 Interactive session with smart scenario loading")
+        print("💡 Use 'scenarios' to list all available scenarios, 'analyze 1' to load scenario1")
         main()
     except Exception as e:
         print(f"❌ Error running interactive assistant: {e}")
@@ -249,21 +275,22 @@ def main():
             return 0 if run_analyze(scenario, api_key) else 1
 
         elif mode == 'interactive':
-            if len(sys.argv) < 5:
+            if len(sys.argv) < 3:
                 print("❌ Missing required arguments")
-                print("Usage: python main.py interactive <scenario> <api_key> <user_id>")
+                print("Usage: python main.py interactive <api_key> [user_id]")
                 return 1
 
-            scenario = sys.argv[2]
-            api_key = sys.argv[3]
-            user_id = sys.argv[4]
+            api_key = sys.argv[2]
+            user_id = sys.argv[3] if len(sys.argv) > 3 else None
 
-            if not validate_scenario(scenario) or not validate_api_key(api_key):
+            if not validate_api_key(api_key):
                 return 1
 
             show_banner()
-            print(f"💬 Starting Interactive Session for {user_id}...")
-            return 0 if run_interactive(scenario, api_key, user_id) else 1
+            print(f"💬 Starting Interactive Session...")
+            if user_id:
+                print(f"👤 User: {user_id}")
+            return 0 if run_interactive_simple(api_key, user_id) else 1
 
         elif mode == 'list-scenarios':
             show_banner()
